@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&amp;family=DM+Sans:wght@300;400&amp;family=DM+Mono:wght@500&amp;display=swap');
+      .label { font-family: 'DM Mono', monospace; font-size: 13px; fill: #9aacbe; letter-spacing: 0.14em; }
+    </style>
+  </defs>
+
+  <!-- ─── Background ─── -->
+  <rect width="800" height="600" fill="#f4f6fb"/>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- VARIANT 1: Full lockup — light      -->
+  <!-- ════════════════════════════════════ -->
+  <text x="60" y="52" class="label">PRIMARY · LIGHT BACKGROUND</text>
+
+  <!-- Octagon mark, center 110, 130, circumradius 66 -->
+  <polygon points="110,64 154,80.6 176,124 154,167.4 110,184 66,167.4 44,124 66,80.6" fill="#1a2744"/>
+  <polygon points="110,75 146,89.1 164,124 146,158.9 110,173 74,158.9 56,124 74,89.1" fill="none" stroke="rgba(31,122,181,0.5)" stroke-width="2"/>
+
+  <!-- F letterform -->
+  <line x1="84"  y1="100" x2="84"  y2="152" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="84"  y1="100" x2="110" y2="100" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="84"  y1="125" x2="106" y2="125" stroke="white" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- S letterform -->
+  <path d="M118 152 Q146 152 146 138 Q146 124 118 124 Q90 124 90 110 Q90 96 118 96 Q140 96 142 104"
+        fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Wordmark -->
+  <text x="200" y="108" font-family="'Playfair Display',serif" font-weight="900" font-size="54" fill="#1a2744" letter-spacing="-1">Forstra</text>
+  <line x1="200" y1="118" x2="740" y2="118" stroke="#c2d3e5" stroke-width="1.2"/>
+  <text x="203"  y="152" font-family="'DM Sans',sans-serif" font-weight="300" font-size="28" fill="#1f7ab5" letter-spacing="16">DIGITAL</text>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- VARIANT 2: Full lockup — dark       -->
+  <!-- ════════════════════════════════════ -->
+  <rect x="40" y="220" width="720" height="160" rx="6" fill="#1a2744"/>
+
+  <text x="60" y="216" class="label">PRIMARY · DARK BACKGROUND</text>
+
+  <!-- Octagon on dark, center 110, 300 -->
+  <polygon points="110,234 154,250.6 176,294 154,337.4 110,354 66,337.4 44,294 66,250.6" fill="#1f7ab5"/>
+  <polygon points="110,245 146,259.1 164,294 146,328.9 110,343 74,328.9 56,294 74,259.1" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+
+  <line x1="84"  y1="270" x2="84"  y2="322" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="84"  y1="270" x2="110" y2="270" stroke="white" stroke-width="6" stroke-linecap="round"/>
+  <line x1="84"  y1="295" x2="106" y2="295" stroke="white" stroke-width="5" stroke-linecap="round"/>
+  <path d="M118 322 Q146 322 146 308 Q146 294 118 294 Q90 294 90 280 Q90 266 118 266 Q140 266 142 274"
+        fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="200" y="278" font-family="'Playfair Display',serif" font-weight="900" font-size="54" fill="white" letter-spacing="-1">Forstra</text>
+  <line x1="200" y1="288" x2="740" y2="288" stroke="rgba(255,255,255,0.18)" stroke-width="1.2"/>
+  <text x="203"  y="322" font-family="'DM Sans',sans-serif" font-weight="300" font-size="28" fill="#5dc0e8" letter-spacing="16">DIGITAL</text>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- VARIANT 3: Icon only — 3 sizes      -->
+  <!-- ════════════════════════════════════ -->
+  <text x="60" y="416" class="label">ICON MARK · SCALED</text>
+
+  <!-- 128px icon, center 124, 490 -->
+  <polygon points="124,426 166.5,441.4 186,484 166.5,526.6 124,542 81.5,526.6 62,484 81.5,441.4" fill="#1a2744"/>
+  <polygon points="124,436 160.2,449.4 176,484 160.2,518.6 124,532 87.8,518.6 72,484 87.8,449.4" fill="none" stroke="rgba(31,122,181,0.5)" stroke-width="1.8"/>
+  <line x1="100" y1="462" x2="100" y2="508" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="100" y1="462" x2="120" y2="462" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="100" y1="484" x2="118" y2="484" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M128 508 Q150 508 150 496 Q150 484 128 484 Q106 484 106 472 Q106 460 128 460 Q146 460 148 468"
+        fill="none" stroke="white" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="124" y="556" class="label" text-anchor="middle">128 px</text>
+
+  <!-- 64px icon, center 290, 490 -->
+  <polygon points="290,448 311.7,456.3 321,478 311.7,499.7 290,508 268.3,499.7 259,478 268.3,456.3" fill="#1a2744"/>
+  <polygon points="290,454 308,461.1 315,478 308,494.9 290,502 272,494.9 265,478 272,461.1" fill="none" stroke="rgba(31,122,181,0.5)" stroke-width="1.2"/>
+  <line x1="278" y1="464" x2="278" y2="492" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+  <line x1="278" y1="464" x2="290" y2="464" stroke="white" stroke-width="3.2" stroke-linecap="round"/>
+  <line x1="278" y1="478" x2="288" y2="478" stroke="white" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M294 492 Q305 492 305 485.5 Q305 479 294 479 Q283 479 283 472.5 Q283 466 294 466 Q303 466 304 470"
+        fill="none" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="290" y="522" class="label" text-anchor="middle">64 px</text>
+
+  <!-- 32px icon, center 380, 490 -->
+  <polygon points="380,469 391,473.2 395,484 391,494.8 380,499 369,494.8 365,484 369,473.2" fill="#1a2744"/>
+  <line x1="373" y1="475" x2="373" y2="493" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="373" y1="475" x2="380" y2="475" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="373" y1="484" x2="379" y2="484" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M382 493 Q389 493 389 488.5 Q389 484 382 484 Q375 484 375 479.5 Q375 475 382 475 Q387.5 475 388 477.5"
+        fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="380" y="510" class="label" text-anchor="middle">32 px</text>
+
+  <!-- ════════════════════════════════════ -->
+  <!-- VARIANT 4: Monochrome              -->
+  <!-- ════════════════════════════════════ -->
+  <text x="460" y="416" class="label">MONOCHROME · SINGLE COLOUR</text>
+
+  <!-- Octagon mono, center 560, 490 -->
+  <polygon points="560,426 604,442.6 626,486 604,529.4 560,546 516,529.4 494,486 516,442.6" fill="#1f7ab5"/>
+  <polygon points="560,437 596,451.1 614,486 596,520.9 560,535 524,520.9 506,486 524,451.1" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.8"/>
+  <line x1="536" y1="464" x2="536" y2="510" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="536" y1="464" x2="556" y2="464" stroke="white" stroke-width="5.5" stroke-linecap="round"/>
+  <line x1="536" y1="486" x2="554" y2="486" stroke="white" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M564 510 Q586 510 586 498 Q586 486 564 486 Q542 486 542 474 Q542 462 564 462 Q582 462 584 470"
+        fill="none" stroke="white" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Footer -->
+  <line x1="40" y1="585" x2="760" y2="585" stroke="#c2d3e5" stroke-width="0.8"/>
+  <text x="400" y="597" class="label" text-anchor="middle">Forstra Digital · Brand Mark · forstradigital.com · 2025</text>
+</svg>
