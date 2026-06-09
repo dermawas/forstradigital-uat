@@ -1,0 +1,159 @@
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font-sans); }
+.wrap { padding: 1.5rem 1rem; max-width: 680px; }
+h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
+h2 { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin: 1.4rem 0 0.6rem; border-bottom: 1px solid var(--color-border-tertiary); padding-bottom: 6px; }
+h3 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin: 0.8rem 0 0.3rem; }
+p, li { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+ul { padding-left: 1.2rem; margin-top: 0.3rem; }
+li { margin-bottom: 3px; }
+.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; margin-right: 4px; }
+.tag-go { background: var(--color-background-success); color: var(--color-text-success); }
+.tag-warn { background: var(--color-background-warning); color: var(--color-text-warning); }
+.tag-hard { background: var(--color-background-danger); color: var(--color-text-danger); }
+.tag-info { background: var(--color-background-info); color: var(--color-text-info); }
+.card { border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 10px; }
+.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.mvp-pill { font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 8px; }
+.mvp1 { background: var(--color-background-success); color: var(--color-text-success); }
+.mvp2 { background: var(--color-background-info); color: var(--color-text-info); }
+.mvp3 { background: var(--color-background-warning); color: var(--color-text-warning); }
+.stack-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--color-border-tertiary); }
+.stack-row:last-child { border-bottom: none; }
+.stack-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); min-width: 110px; }
+.stack-val { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.stack-why { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+.section-note { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; margin-top: 6px; }
+.verdict { border-left: 3px solid var(--color-border-success); background: var(--color-background-success); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 10px 14px; margin: 1rem 0; }
+.verdict p { color: var(--color-text-success); font-size: 13px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+th { text-align: left; font-weight: 500; color: var(--color-text-primary); padding: 6px 8px; border-bottom: 1px solid var(--color-border-secondary); }
+td { padding: 6px 8px; color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border-tertiary); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+.mono { font-family: var(--font-mono); font-size: 11px; background: var(--color-background-secondary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+</style>
+
+<div class="wrap">
+  <h1>SpendAware — App Brief</h1>
+  <div class="subtitle">Feasibility · PRD Skeleton · Tech Stack &nbsp;|&nbsp; Forstra Digital · June 2026</div>
+
+  <h2>Feasibility verdict</h2>
+  <div class="verdict"><p>✅ Fully buildable as a vibe-coding project. MVP 1 (manual tracking + threshold alerts) is achievable in 2–4 weeks with Expo + Supabase. MVP 2 OCR feature is the right call over Open Banking — cheaper, works across all banks, no API approval needed.</p></div>
+
+  <h2>Feature scope by phase</h2>
+
+  <div class="card">
+    <div class="card-title"><span class="mvp-pill mvp1">MVP 1</span> Core tracking</div>
+    <ul>
+      <li>Manual expense entry — amount, category, note, date</li>
+      <li>Preset categories (makan, transport, tagihan, hiburan, dll) + custom</li>
+      <li>Monthly balance view: income – expenses = remaining</li>
+      <li>Budget per category — set limit, track remaining</li>
+      <li><strong>Spending threshold alert</strong> — push notif at 80% and 100% of budget</li>
+      <li>Monthly summary screen with simple bar/pie breakdown</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="mvp-pill mvp2">MVP 2</span> OCR receipt capture</div>
+    <ul>
+      <li>User taps "Scan" → takes photo of bank notif screenshot or paper receipt</li>
+      <li>App extracts: merchant name, amount, date</li>
+      <li>Pre-fills entry form — user confirms + picks category</li>
+      <li>Works on ANY bank — no API dependency</li>
+      <li>Tech: <span class="mono">Google ML Kit Text Recognition</span> (on-device, free, offline)</li>
+    </ul>
+    <p class="section-note">This IS your differentiator — 3-tap entry vs competitors' full manual. "Scan &amp; confirm" is a strong UX story.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="mvp-pill mvp3">MVP 3</span> Freemium + growth</div>
+    <ul>
+      <li>Free tier: 1 wallet, 3 category budgets, 30-day history</li>
+      <li>Premium: unlimited wallets, unlimited categories, full history, export CSV</li>
+      <li>Multi-wallet support (cash, BCA, GoPay, dll)</li>
+      <li>Recurring expense detection</li>
+      <li>Weekly digest notification</li>
+    </ul>
+  </div>
+
+  <h2>OCR approach — why it works</h2>
+  <table>
+    <tr><th>Approach</th><th>Effort</th><th>Works on all banks?</th><th>Cost</th></tr>
+    <tr><td>Open Banking API (SNAP BI)</td><td><span class="tag tag-hard">Hard</span></td><td>No — low adoption</td><td>API fees + approval</td></tr>
+    <tr><td>SMS/notif parsing</td><td><span class="tag tag-warn">Medium</span></td><td>Partial — Android only</td><td>Free but fragile</td></tr>
+    <tr><td>Email parsing</td><td><span class="tag tag-warn">Medium</span></td><td>Partial — not all banks</td><td>Free but complex</td></tr>
+    <tr><td><strong>OCR screenshot scan</strong></td><td><span class="tag tag-go">Easy</span></td><td>✅ Yes — any bank, any receipt</td><td>Free (on-device)</td></tr>
+  </table>
+  <p class="section-note" style="margin-top:8px">Google ML Kit runs on-device — no API calls, no cost, works offline. You post-process the extracted text with a simple regex/parser to pull amount + date.</p>
+
+  <h2>Tech stack</h2>
+  <div class="card" style="margin-top:6px">
+    <div class="stack-row">
+      <div class="stack-label">Mobile framework</div>
+      <div><div class="stack-val"><span class="mono">React Native (Expo SDK 51+)</span></div><div class="stack-why">Android-first, iOS-ready later. One codebase. Expo Go = test on your phone in minutes, no store needed.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Backend + DB</div>
+      <div><div class="stack-val"><span class="mono">Supabase</span> (hosted, free tier)</div><div class="stack-why">PostgreSQL under the hood — familiar from GnuCash. Auth, realtime, REST API all included. Self-hostable on OCI later if needed. Free tier: 500MB DB, 50k MAU.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Auth</div>
+      <div><div class="stack-val">Supabase Auth (email + Google OAuth)</div><div class="stack-why">Built-in. Zero extra work.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">OCR (MVP 2)</div>
+      <div><div class="stack-val"><span class="mono">react-native-mlkit-ocr</span></div><div class="stack-why">Google ML Kit, on-device, free, works offline. No server call needed.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Push notifications</div>
+      <div><div class="stack-val"><span class="mono">Expo Notifications</span> (FCM for Android)</div><div class="stack-why">Threshold alerts at 80%/100% budget. Free via Firebase Cloud Messaging.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Charts</div>
+      <div><div class="stack-val"><span class="mono">Victory Native</span> or <span class="mono">react-native-gifted-charts</span></div><div class="stack-why">Lightweight, no native module issues with Expo.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">State management</div>
+      <div><div class="stack-val"><span class="mono">Zustand</span> (lightweight)</div><div class="stack-why">Simpler than Redux, works well with Supabase realtime.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Android distribution</div>
+      <div><div class="stack-val"><span class="mono">EAS Build</span> (Expo) → Google Play Console</div><div class="stack-why">EAS Build free tier = 30 builds/month. You already have a Play Console account.</div></div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label">Hosting (backend)</div>
+      <div><div class="stack-val">Supabase cloud (free to start) → OCI migrate later</div><div class="stack-why">No need for Ferdinand's OCI account at MVP 1. Revisit at MVP 3 if cost becomes a factor.</div></div>
+    </div>
+  </div>
+
+  <h2>PRD skeleton — screen list</h2>
+  <table>
+    <tr><th>Screen</th><th>Key actions</th><th>Phase</th></tr>
+    <tr><td>Onboarding / auth</td><td>Register, login, set monthly income</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Home / dashboard</td><td>Balance, expenses today, quick-add button</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Add expense</td><td>Amount, category, note, date picker</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Category budget</td><td>Set limit, view progress bar per category</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Monthly report</td><td>Bar chart by category, total spend trend</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Transaction history</td><td>List view, filter by category/date</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Settings</td><td>Income, currency, notification prefs</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
+    <tr><td>Scan receipt (OCR)</td><td>Camera → extract → confirm → save</td><td><span class="mvp-pill mvp2">MVP2</span></td></tr>
+    <tr><td>Multi-wallet</td><td>Add wallet, transfer between wallets</td><td><span class="mvp-pill mvp3">MVP3</span></td></tr>
+    <tr><td>Subscription / paywall</td><td>Free vs premium features</td><td><span class="mvp-pill mvp3">MVP3</span></td></tr>
+  </table>
+
+  <h2>Risks &amp; mitigations</h2>
+  <table>
+    <tr><th>Risk</th><th>Mitigation</th></tr>
+    <tr><td>OCR accuracy on low-res screenshots</td><td>Always show confirmation screen — user edits before saving</td></tr>
+    <tr><td>Supabase free tier limits (500MB)</td><td>Aggregate old records monthly; raw data purge after 1yr on free plan</td></tr>
+    <tr><td>Google Play review delay</td><td>Use Expo Go + APK sideload for pilot testing before submission</td></tr>
+    <tr><td>Competitors (Finansialku, Money Lover)</td><td>Differentiator = OCR scan + threshold alerts + no bloat. Ship lean.</td></tr>
+  </table>
+
+  <h2>Suggested next step</h2>
+  <p>Confirm stack ✅ → I scaffold the project: Expo init, Supabase schema (users, wallets, transactions, budgets), auth flow, home screen. We go screen by screen from there.</p>
+</div>
