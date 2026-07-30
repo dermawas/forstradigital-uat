@@ -1,159 +1,166 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{APP_NAME} — expense tracking with optional GnuCash sync | Forstra Digital</title>
+<meta name="description" content="{APP_NAME} is an early beta expense tracker with AI-assisted receipt scanning and optional one-way GnuCash sync. Shared directly for market testing, not yet on Google Play."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: var(--font-sans); }
-.wrap { padding: 1.5rem 1rem; max-width: 680px; }
-h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
-.subtitle { font-size: 13px; color: var(--color-text-secondary); margin-bottom: 1.5rem; }
-h2 { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin: 1.4rem 0 0.6rem; border-bottom: 1px solid var(--color-border-tertiary); padding-bottom: 6px; }
-h3 { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin: 0.8rem 0 0.3rem; }
-p, li { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
-ul { padding-left: 1.2rem; margin-top: 0.3rem; }
-li { margin-bottom: 3px; }
-.tag { display: inline-block; font-size: 11px; font-weight: 500; padding: 2px 8px; border-radius: 10px; margin-right: 4px; }
-.tag-go { background: var(--color-background-success); color: var(--color-text-success); }
-.tag-warn { background: var(--color-background-warning); color: var(--color-text-warning); }
-.tag-hard { background: var(--color-background-danger); color: var(--color-text-danger); }
-.tag-info { background: var(--color-background-info); color: var(--color-text-info); }
-.card { border: 1px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 12px 14px; margin-bottom: 10px; }
-.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.mvp-pill { font-size: 10px; font-weight: 500; padding: 1px 7px; border-radius: 8px; }
-.mvp1 { background: var(--color-background-success); color: var(--color-text-success); }
-.mvp2 { background: var(--color-background-info); color: var(--color-text-info); }
-.mvp3 { background: var(--color-background-warning); color: var(--color-text-warning); }
-.stack-row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--color-border-tertiary); }
-.stack-row:last-child { border-bottom: none; }
-.stack-label { font-size: 12px; font-weight: 500; color: var(--color-text-primary); min-width: 110px; }
-.stack-val { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
-.stack-why { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
-.section-note { font-size: 12px; color: var(--color-text-tertiary); font-style: italic; margin-top: 6px; }
-.verdict { border-left: 3px solid var(--color-border-success); background: var(--color-background-success); border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; padding: 10px 14px; margin: 1rem 0; }
-.verdict p { color: var(--color-text-success); font-size: 13px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
-th { text-align: left; font-weight: 500; color: var(--color-text-primary); padding: 6px 8px; border-bottom: 1px solid var(--color-border-secondary); }
-td { padding: 6px 8px; color: var(--color-text-secondary); border-bottom: 1px solid var(--color-border-tertiary); vertical-align: top; }
-tr:last-child td { border-bottom: none; }
-.mono { font-family: var(--font-mono); font-size: 11px; background: var(--color-background-secondary); padding: 1px 5px; border-radius: 4px; color: var(--color-text-primary); }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#1a2744;--paper:#f4f6fb;--accent:#1a7ab5;--teal:#1e9aa0;
+    --muted:#4a5872;--line:#c2d3e5;--warn-bg:#fdf1d6;--warn-line:#e0b84a;--warn-text:#7a5c00;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;}
+  a{color:inherit;}
+  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(244,246,251,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-logo{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-decoration:none;color:var(--ink);font-weight:500;}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .nav-links a:hover{color:var(--accent);}
+  main{max-width:920px;margin:0 auto;padding:0 4rem;}
+  .hero{padding:5rem 0 3rem;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+  .eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--teal);}
+  h1{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.4rem;}
+  h1 em{font-style:italic;color:var(--teal);}
+  .sub{font-size:1.05rem;color:var(--muted);max-width:56ch;line-height:1.8;margin-bottom:2.2rem;}
+  .actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1rem;}
+  .btn-primary{background:var(--teal);color:#fff;padding:0.9rem 1.8rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.2s;}
+  .btn-primary:hover{background:var(--ink);transform:translateY(-2px);}
+  .btn-secondary{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;}
+  .btn-secondary:hover{color:var(--ink);}
+  .btn-secondary::after{content:'→';}
+  .version-note{font-family:var(--mono);font-size:0.68rem;color:var(--muted);}
+  .beta-banner{background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-text);padding:1.1rem 1.4rem;font-size:0.88rem;line-height:1.6;margin:2rem 0;}
+  .beta-banner strong{display:block;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;}
+  section{padding:3.5rem 0;border-bottom:1px solid var(--line);}
+  .section-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.7rem;}
+  .section-label::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--teal);}
+  .section-title{font-family:var(--serif);font-size:clamp(1.5rem,2.5vw,2.1rem);font-weight:700;line-height:1.15;letter-spacing:-0.01em;margin-bottom:1.3rem;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .card{border:1px solid var(--line);background:#fff;padding:1.6rem;}
+  .card h3{font-family:var(--serif);font-size:1.05rem;font-weight:700;margin-bottom:0.6rem;}
+  .card p{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+  .card .tag{display:inline-block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;}
+  ul.plain{list-style:none;color:var(--muted);font-size:0.95rem;line-height:2;}
+  ul.plain li::before{content:'—';color:var(--teal);margin-right:0.6rem;}
+  footer{padding:2.5rem 0 4rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center;}
+  .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
+  .footer-links a{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .footer-links a:hover{color:var(--teal);}
+  .footer-copy{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+  @media(max-width:760px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{gap:1.2rem;}
+    main{padding:0 1.5rem;}
+    .cards{grid-template-columns:1fr;}
+  }
 </style>
+</head>
+<body>
 
-<div class="wrap">
-  <h1>SpendAware — App Brief</h1>
-  <div class="subtitle">Feasibility · PRD Skeleton · Tech Stack &nbsp;|&nbsp; Forstra Digital · June 2026</div>
+<nav>
+  <a class="nav-logo" href="/">Forstra Digital</a>
+  <ul class="nav-links">
+    <li><a href="spendaware-gnucash-setup.html">GnuCash setup</a></li>
+    <li><a href="spendaware-privacy.html">Privacy</a></li>
+    <li><a href="spendaware-feedback.html">Feedback</a></li>
+  </ul>
+</nav>
 
-  <h2>Feasibility verdict</h2>
-  <div class="verdict"><p>✅ Fully buildable as a vibe-coding project. MVP 1 (manual tracking + threshold alerts) is achievable in 2–4 weeks with Expo + Supabase. MVP 2 OCR feature is the right call over Open Banking — cheaper, works across all banks, no API approval needed.</p></div>
+<main>
+  <section class="hero">
+    <div class="eyebrow">Beta · market test</div>
+    <h1><span data-app-name></span> tracks what you spend, <em>without the manual entry</em></h1>
+    <p class="sub">
+      Log expenses by hand, or scan a receipt and let AI split it into categories for you.
+      If you keep your books in GnuCash, <span data-app-name></span> can optionally sync
+      every expense straight into your ledger as a real, balanced double-entry transaction —
+      entirely one-way, entirely on your own self-hosted setup.
+    </p>
+    <div class="actions">
+      <a class="btn-primary" href="https://github.com/dermawas/forstradigital/releases/latest/download/app-release.apk">Download the APK</a>
+      <a class="btn-secondary" href="spendaware-gnucash-setup.html">GnuCash setup guide</a>
+    </div>
+    <div class="version-note">Android, direct install · <a href="https://github.com/dermawas/forstradigital/releases" style="color:inherit;">see all releases</a></div>
 
-  <h2>Feature scope by phase</h2>
+    <div class="beta-banner">
+      <strong>What "beta" means here</strong>
+      This build is shared directly with people who want to try it — it is not on the Google Play Store yet.
+      Android will warn you about installing an app from outside the Play Store; that's expected for a direct
+      install, not a sign something's wrong. You'll need to allow your browser to install unknown apps once.
+      Things may still be rough around the edges — that's exactly what this stage is for finding out.
+      <a href="spendaware-feedback.html" style="color:inherit;text-decoration:underline;">Feedback is genuinely wanted →</a>
+    </div>
+  </section>
 
-  <div class="card">
-    <div class="card-title"><span class="mvp-pill mvp1">MVP 1</span> Core tracking</div>
-    <ul>
-      <li>Manual expense entry — amount, category, note, date</li>
-      <li>Preset categories (makan, transport, tagihan, hiburan, dll) + custom</li>
-      <li>Monthly balance view: income – expenses = remaining</li>
-      <li>Budget per category — set limit, track remaining</li>
-      <li><strong>Spending threshold alert</strong> — push notif at 80% and 100% of budget</li>
-      <li>Monthly summary screen with simple bar/pie breakdown</li>
+  <section>
+    <div class="section-label">What it does</div>
+    <div class="section-title">Two ways in, one place it all lands</div>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Manual</div>
+        <h3>Wallets, categories, budgets</h3>
+        <p>Multiple wallets (cash, bank, credit card, e-wallet), custom categories, and monthly
+          budgets with a spend breakdown by week, month, or year.</p>
+      </div>
+      <div class="card">
+        <div class="tag">AI-assisted</div>
+        <h3>Scan a receipt</h3>
+        <p>Photograph a receipt and a backend-hosted AI splits it into line items with suggested
+          categories — including multi-item receipts, split correctly across categories. A limited
+          number of scans are free each day, supported by ads; a paid tier with a larger allowance
+          is planned.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Optional</div>
+        <h3>GnuCash Sync</h3>
+        <p>Point the app at your own self-hosted PostgREST layer in front of your GnuCash
+          PostgreSQL book, and expenses sync over as real, balanced transactions —
+          indistinguishable from ones you entered in GnuCash desktop yourself.</p>
+      </div>
+      <div class="card">
+        <div class="tag">Your data</div>
+        <h3>You control the ledger</h3>
+        <p>SpendAware never connects to your GnuCash database directly, never sees your real
+          database credentials, and can only ever insert new expenses through one narrowly-scoped
+          function — never read balances or existing history, never alter your schema.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Who this beta is for</div>
+    <div class="section-title">Comfortable installing an APK directly</div>
+    <p class="sub" style="margin-bottom:1.2rem;">
+      This is aimed at people already comfortable self-hosting things — GnuCash users especially,
+      since GnuCash Sync assumes you're willing to run a small PostgREST service yourself. If that's
+      not you yet, the app works perfectly well standalone with no GnuCash setup at all.
+    </p>
+    <ul class="plain">
+      <li>You're fine sideloading an APK and allowing "install unknown apps" once</li>
+      <li>You optionally already run (or are willing to run) GnuCash against a PostgreSQL-backed book</li>
+      <li>You're OK with a beta that's still being actively shaped by feedback</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="card">
-    <div class="card-title"><span class="mvp-pill mvp2">MVP 2</span> OCR receipt capture</div>
-    <ul>
-      <li>User taps "Scan" → takes photo of bank notif screenshot or paper receipt</li>
-      <li>App extracts: merchant name, amount, date</li>
-      <li>Pre-fills entry form — user confirms + picks category</li>
-      <li>Works on ANY bank — no API dependency</li>
-      <li>Tech: <span class="mono">Google ML Kit Text Recognition</span> (on-device, free, offline)</li>
-    </ul>
-    <p class="section-note">This IS your differentiator — 3-tap entry vs competitors' full manual. "Scan &amp; confirm" is a strong UX story.</p>
-  </div>
+  <footer>
+    <div class="footer-links">
+      <a href="spendaware-gnucash-setup.html">GnuCash setup guide</a>
+      <a href="spendaware-privacy.html">Privacy policy</a>
+      <a href="spendaware-feedback.html">Send feedback</a>
+      <a href="https://github.com/dermawas/forstradigital/releases">All releases</a>
+    </div>
+    <div class="footer-copy">Forstra Digital · <span data-app-name></span> beta</div>
+  </footer>
+</main>
 
-  <div class="card">
-    <div class="card-title"><span class="mvp-pill mvp3">MVP 3</span> Freemium + growth</div>
-    <ul>
-      <li>Free tier: 1 wallet, 3 category budgets, 30-day history</li>
-      <li>Premium: unlimited wallets, unlimited categories, full history, export CSV</li>
-      <li>Multi-wallet support (cash, BCA, GoPay, dll)</li>
-      <li>Recurring expense detection</li>
-      <li>Weekly digest notification</li>
-    </ul>
-  </div>
-
-  <h2>OCR approach — why it works</h2>
-  <table>
-    <tr><th>Approach</th><th>Effort</th><th>Works on all banks?</th><th>Cost</th></tr>
-    <tr><td>Open Banking API (SNAP BI)</td><td><span class="tag tag-hard">Hard</span></td><td>No — low adoption</td><td>API fees + approval</td></tr>
-    <tr><td>SMS/notif parsing</td><td><span class="tag tag-warn">Medium</span></td><td>Partial — Android only</td><td>Free but fragile</td></tr>
-    <tr><td>Email parsing</td><td><span class="tag tag-warn">Medium</span></td><td>Partial — not all banks</td><td>Free but complex</td></tr>
-    <tr><td><strong>OCR screenshot scan</strong></td><td><span class="tag tag-go">Easy</span></td><td>✅ Yes — any bank, any receipt</td><td>Free (on-device)</td></tr>
-  </table>
-  <p class="section-note" style="margin-top:8px">Google ML Kit runs on-device — no API calls, no cost, works offline. You post-process the extracted text with a simple regex/parser to pull amount + date.</p>
-
-  <h2>Tech stack</h2>
-  <div class="card" style="margin-top:6px">
-    <div class="stack-row">
-      <div class="stack-label">Mobile framework</div>
-      <div><div class="stack-val"><span class="mono">React Native (Expo SDK 51+)</span></div><div class="stack-why">Android-first, iOS-ready later. One codebase. Expo Go = test on your phone in minutes, no store needed.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Backend + DB</div>
-      <div><div class="stack-val"><span class="mono">Supabase</span> (hosted, free tier)</div><div class="stack-why">PostgreSQL under the hood — familiar from GnuCash. Auth, realtime, REST API all included. Self-hostable on OCI later if needed. Free tier: 500MB DB, 50k MAU.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Auth</div>
-      <div><div class="stack-val">Supabase Auth (email + Google OAuth)</div><div class="stack-why">Built-in. Zero extra work.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">OCR (MVP 2)</div>
-      <div><div class="stack-val"><span class="mono">react-native-mlkit-ocr</span></div><div class="stack-why">Google ML Kit, on-device, free, works offline. No server call needed.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Push notifications</div>
-      <div><div class="stack-val"><span class="mono">Expo Notifications</span> (FCM for Android)</div><div class="stack-why">Threshold alerts at 80%/100% budget. Free via Firebase Cloud Messaging.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Charts</div>
-      <div><div class="stack-val"><span class="mono">Victory Native</span> or <span class="mono">react-native-gifted-charts</span></div><div class="stack-why">Lightweight, no native module issues with Expo.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">State management</div>
-      <div><div class="stack-val"><span class="mono">Zustand</span> (lightweight)</div><div class="stack-why">Simpler than Redux, works well with Supabase realtime.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Android distribution</div>
-      <div><div class="stack-val"><span class="mono">EAS Build</span> (Expo) → Google Play Console</div><div class="stack-why">EAS Build free tier = 30 builds/month. You already have a Play Console account.</div></div>
-    </div>
-    <div class="stack-row">
-      <div class="stack-label">Hosting (backend)</div>
-      <div><div class="stack-val">Supabase cloud (free to start) → OCI migrate later</div><div class="stack-why">No need for Ferdinand's OCI account at MVP 1. Revisit at MVP 3 if cost becomes a factor.</div></div>
-    </div>
-  </div>
-
-  <h2>PRD skeleton — screen list</h2>
-  <table>
-    <tr><th>Screen</th><th>Key actions</th><th>Phase</th></tr>
-    <tr><td>Onboarding / auth</td><td>Register, login, set monthly income</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Home / dashboard</td><td>Balance, expenses today, quick-add button</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Add expense</td><td>Amount, category, note, date picker</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Category budget</td><td>Set limit, view progress bar per category</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Monthly report</td><td>Bar chart by category, total spend trend</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Transaction history</td><td>List view, filter by category/date</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Settings</td><td>Income, currency, notification prefs</td><td><span class="mvp-pill mvp1">MVP1</span></td></tr>
-    <tr><td>Scan receipt (OCR)</td><td>Camera → extract → confirm → save</td><td><span class="mvp-pill mvp2">MVP2</span></td></tr>
-    <tr><td>Multi-wallet</td><td>Add wallet, transfer between wallets</td><td><span class="mvp-pill mvp3">MVP3</span></td></tr>
-    <tr><td>Subscription / paywall</td><td>Free vs premium features</td><td><span class="mvp-pill mvp3">MVP3</span></td></tr>
-  </table>
-
-  <h2>Risks &amp; mitigations</h2>
-  <table>
-    <tr><th>Risk</th><th>Mitigation</th></tr>
-    <tr><td>OCR accuracy on low-res screenshots</td><td>Always show confirmation screen — user edits before saving</td></tr>
-    <tr><td>Supabase free tier limits (500MB)</td><td>Aggregate old records monthly; raw data purge after 1yr on free plan</td></tr>
-    <tr><td>Google Play review delay</td><td>Use Expo Go + APK sideload for pilot testing before submission</td></tr>
-    <tr><td>Competitors (Finansialku, Money Lover)</td><td>Differentiator = OCR scan + threshold alerts + no bloat. Ship lean.</td></tr>
-  </table>
-
-  <h2>Suggested next step</h2>
-  <p>Confirm stack ✅ → I scaffold the project: Expo init, Supabase schema (users, wallets, transactions, budgets), auth flow, home screen. We go screen by screen from there.</p>
-</div>
+<script src="spendaware-app-name.js"></script>
+</body>
+</html>
