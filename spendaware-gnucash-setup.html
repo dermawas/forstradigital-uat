@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Setting up GnuCash Sync — {APP_NAME} | Forstra Digital</title>
+<meta name="description" content="Self-hosting walkthrough for {APP_NAME}'s optional GnuCash Sync feature: PostgREST, JWT, and mapping your GnuCash ledger."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#1a2744;--paper:#f4f6fb;--accent:#1a7ab5;--teal:#1e9aa0;
+    --muted:#4a5872;--line:#c2d3e5;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;}
+  a{color:var(--accent);}
+  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(244,246,251,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-logo{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-decoration:none;color:var(--ink);font-weight:500;}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .nav-links a:hover{color:var(--accent);}
+  main{max-width:760px;margin:0 auto;padding:4rem 4rem 6rem;}
+  .eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;}
+  .eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--teal);}
+  h1{font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.6rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;}
+  .lede{color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:1rem;}
+  .callout{background:#fff;border:1px solid var(--line);border-left:3px solid var(--teal);padding:1.1rem 1.4rem;font-size:0.9rem;color:var(--muted);line-height:1.7;margin:1.5rem 0 2.5rem;}
+  h2{font-family:var(--serif);font-size:1.4rem;font-weight:700;margin:2.6rem 0 1rem;border-bottom:1px solid var(--line);padding-bottom:0.6rem;}
+  h2:first-of-type{margin-top:0;}
+  h3{font-size:1rem;font-weight:700;margin:1.4rem 0 0.5rem;}
+  p{color:var(--muted);font-size:0.95rem;line-height:1.8;margin-bottom:0.9rem;}
+  ul,ol{color:var(--muted);font-size:0.95rem;line-height:1.9;padding-left:1.4rem;margin-bottom:1rem;}
+  li{margin-bottom:0.3rem;}
+  code{font-family:var(--mono);font-size:0.85em;background:#e8ecf5;padding:0.15em 0.4em;border-radius:3px;color:var(--ink);}
+  pre{background:var(--ink);color:#e8ecf5;font-family:var(--mono);font-size:0.82rem;line-height:1.6;padding:1.2rem 1.4rem;overflow-x:auto;margin-bottom:1.2rem;}
+  pre code{background:none;padding:0;color:inherit;}
+  .step-num{display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;background:var(--teal);color:#fff;font-family:var(--mono);font-size:0.8rem;border-radius:50%;margin-right:0.6rem;flex-shrink:0;}
+  .faq-item{border-bottom:1px solid var(--line);padding:1.1rem 0;}
+  .faq-item:last-child{border-bottom:none;}
+  .faq-q{font-weight:700;margin-bottom:0.4rem;}
+  .dl-list{list-style:none;padding-left:0;}
+  .dl-list a{font-family:var(--mono);font-size:0.85rem;}
+  footer{max-width:760px;margin:0 auto;padding:0 4rem 4rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+  @media(max-width:760px){nav{padding:1rem 1.5rem;}.nav-links{gap:1.2rem;}main,footer{padding-left:1.5rem;padding-right:1.5rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Forstra Digital</a>
+  <ul class="nav-links">
+    <li><a href="spendaware.html">{APP_NAME}</a></li>
+    <li><a href="spendaware-privacy.html">Privacy</a></li>
+    <li><a href="spendaware-feedback.html">Feedback</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="eyebrow">Self-hosting guide</div>
+  <h1>Setting up GnuCash Sync</h1>
+  <p class="lede">
+    This walks you through connecting <span data-app-name></span>'s optional GnuCash Sync feature
+    to your own GnuCash ledger. Once set up, expenses you log on your phone show up as real
+    transactions in your GnuCash desktop book.
+  </p>
+
+  <div class="callout">
+    <strong>Your data stays yours.</strong> <span data-app-name></span> never sees your GnuCash
+    username/password or connects to your database directly. You run a small piece of software
+    called <strong>PostgREST</strong> on your own server; your phone talks to <em>that</em> over
+    HTTPS/HTTP, and PostgREST talks to your database internally. The only two things your phone
+    ever stores are the address of your PostgREST server and a single access token (a JWT). Your
+    real database credentials never leave your server.
+  </div>
+
+  <h2>Who this is for</h2>
+  <p>
+    You're comfortable with a command line, and you either already have GnuCash using a
+    <strong>PostgreSQL-backed book</strong> (not the default local file), or you're willing to set
+    one up. If your GnuCash book is currently a local <code>.gnucash</code> file, you'll need to
+    migrate it to Postgres first — GnuCash's own documentation covers this (File → Save As,
+    choosing a PostgreSQL connection).
+  </p>
+
+  <h2>What you'll need</h2>
+  <ul>
+    <li>A GnuCash book already stored in PostgreSQL (version 13 or newer).</li>
+    <li>A server or always-on machine to run PostgREST on — the same machine as your Postgres
+      database works fine, or a different one on the same network.</li>
+    <li>Basic comfort with a terminal, SSH, and copy-pasting commands.</li>
+    <li><code>psql</code> (comes with any PostgreSQL install) and Python 3 (for the JWT step — no
+      extra packages needed).</li>
+  </ul>
+
+  <h2>Download the setup files</h2>
+  <p>These four files are all you need besides PostgREST itself:</p>
+  <ul class="dl-list">
+    <li><a href="https://github.com/dermawas/forstradigital/releases/latest/download/self_hosting_setup.sql">self_hosting_setup.sql</a> — creates the roles and function GnuCash Sync needs</li>
+    <li><a href="https://github.com/dermawas/forstradigital/releases/latest/download/postgrest.conf.example">postgrest.conf.example</a> — PostgREST configuration template</li>
+    <li><a href="https://github.com/dermawas/forstradigital/releases/latest/download/postgrest.service.example">postgrest.service.example</a> — systemd service template</li>
+    <li><a href="https://github.com/dermawas/forstradigital/releases/latest/download/make_jwt.py">make_jwt.py</a> — dependency-free script to generate your access token</li>
+  </ul>
+
+  <h2><span class="step-num">1</span>Run the setup SQL script</h2>
+  <p>
+    Open <code>self_hosting_setup.sql</code> in a text editor and replace the three
+    <code>CHANGE_ME_...</code> passwords near the top with strong passwords of your own — write
+    them down somewhere safe, you'll need one of them again in Step 3.
+  </p>
+  <p>Then run it against your GnuCash database, as a Postgres superuser:</p>
+  <pre><code>psql -U postgres -d your_gnucash_database -f self_hosting_setup.sql</code></pre>
+  <p>This creates three things:</p>
+  <ul>
+    <li>An <code>authenticator</code> role — the only role PostgREST itself ever connects as.</li>
+    <li>A <code>gnucash_app_user</code> role — a deliberately narrow role your phone impersonates
+      for each request. It can only read your chart of accounts (account names, not balances or
+      transaction history) and call one specific function to write new expenses. It can never read
+      a balance, a transaction, or anything else in your ledger.</li>
+    <li>A <code>gnucash_owner</code> role, and a <code>sync_transaction()</code> function that does
+      the actual work of writing a balanced double-entry transaction to your ledger — the same
+      function <code>gnucash_app_user</code> is allowed to call, but nothing more.</li>
+  </ul>
+  <p>
+    If you'd rather point GnuCash <em>desktop itself</em> at this database using a role with full
+    access (recommended, so GnuCash owns its own ledger the way it normally would), connect it
+    using the <code>gnucash_owner</code> role and password you set above — Data Format
+    <code>postgres</code>, your host/port, your database name, username <code>gnucash_owner</code>.
+  </p>
+
+  <h2><span class="step-num">2</span>Install PostgREST</h2>
+  <p>PostgREST ships as a single static binary — no Docker or complex install needed.</p>
+  <ol>
+    <li>Download the release matching your server's architecture from the
+      <a href="https://github.com/PostgREST/postgrest/releases">PostgREST GitHub releases page</a>.</li>
+    <li>Extract it and place the binary somewhere on your <code>$PATH</code>, e.g.
+      <code>/usr/local/bin/postgrest</code>.</li>
+    <li>Confirm it runs: <code>postgrest --help</code></li>
+  </ol>
+
+  <h2><span class="step-num">3</span>Configure PostgREST</h2>
+  <p>
+    Copy <code>postgrest.conf.example</code> to somewhere like
+    <code>/etc/postgrest/postgrest.conf</code>, and fill in its placeholders:
+  </p>
+  <ul>
+    <li><code>db-uri</code> — plug in the <code>authenticator</code> password you set in Step 1.</li>
+    <li><code>jwt-secret</code> — generate a fresh random secret:
+      <code>openssl rand -base64 32</code>. Save this value; you'll pass it to the JWT script next.</li>
+    <li><code>server-host</code> / <code>server-port</code> — where PostgREST listens. See
+      "Deciding how to expose this" below before picking this.</li>
+  </ul>
+
+  <h2><span class="step-num">4</span>Generate your access token (JWT)</h2>
+  <pre><code>python3 make_jwt.py "the-jwt-secret-from-step-3" gnucash_app_user</code></pre>
+  <p>
+    This prints a long string starting with <code>eyJ...</code> — that's your JWT. Copy it
+    somewhere safe. This token doesn't expire, so treat it like a password: it's the only thing
+    (besides your PostgREST URL) that lets a device write to your GnuCash ledger.
+  </p>
+
+  <h2><span class="step-num">5</span>Run PostgREST</h2>
+  <p>For a quick test:</p>
+  <pre><code>postgrest /etc/postgrest/postgrest.conf</code></pre>
+  <p>
+    For it to stay running (including after a server reboot), copy
+    <code>postgrest.service.example</code> to <code>/etc/systemd/system/postgrest.service</code>,
+    fill in the placeholders, then:
+  </p>
+  <pre><code>sudo systemctl daemon-reload
+sudo systemctl enable --now postgrest
+sudo systemctl status postgrest</code></pre>
+  <p>Test it's working:</p>
+  <pre><code>curl http://YOUR_SERVER:3000/accounts -H "Authorization: Bearer YOUR_JWT_FROM_STEP_4"</code></pre>
+  <p>You should get back a JSON list of your GnuCash accounts. If you get an error, see Troubleshooting below.</p>
+
+  <h2><span class="step-num">6</span>Deciding how to expose this</h2>
+  <p>
+    Your phone needs to be able to reach PostgREST's address. How you make that possible is
+    entirely your call:
+  </p>
+  <ul>
+    <li><strong>VPN-only (recommended for most people).</strong> Set up a personal VPN (WireGuard
+      is a popular, simple choice) between your phone and your server, and bind PostgREST to the
+      VPN's private IP address only. Nothing about PostgREST is reachable from the public internet
+      this way.</li>
+    <li><strong>Public with a reverse proxy + HTTPS.</strong> If you want to reach it without a
+      VPN, put a reverse proxy (e.g. Caddy, nginx) in front of PostgREST with a real TLS
+      certificate, and only expose the proxy publicly, not PostgREST directly. PostgREST itself
+      only speaks plain HTTP — your JWT is a bearer token, so it should never travel over an
+      unencrypted public connection.</li>
+  </ul>
+  <p>
+    Whichever you choose, note the final URL (e.g. <code>http://10.x.x.x:3000</code> for a VPN
+    setup, or <code>https://yourdomain.com</code> for a reverse-proxied one) — you'll need it next.
+  </p>
+
+  <h2><span class="step-num">7</span>Connect the app</h2>
+  <p>In <span data-app-name></span>: <strong>Settings → 🔗 GnuCash Sync → Configure GnuCash connection</strong>.</p>
+  <ol>
+    <li>Turn the sync toggle on.</li>
+    <li>Enter your PostgREST URL from Step 6.</li>
+    <li>Enter the JWT from Step 4.</li>
+    <li>Tap <strong>Test Connection</strong> — you should see your account count confirmed.</li>
+    <li>Tap <strong>Save Connection</strong>.</li>
+  </ol>
+
+  <h2><span class="step-num">8</span>Map your wallets and categories</h2>
+  <p>
+    The first time you save an expense with sync enabled, the app will prompt you to map the
+    wallet and category involved to a matching GnuCash account (search by name — GnuCash's full
+    account tree is available, with breadcrumb paths to disambiguate similarly-named accounts in
+    different places). This mapping is saved per wallet/category, so you only do it once per
+    pairing, not per transaction. You can also do this ahead of time from the GnuCash Sync
+    settings screen's account list.
+  </p>
+  <p>
+    From here on, expenses you log will appear in your GnuCash ledger as normal, balanced
+    transactions — indistinguishable from ones entered directly in GnuCash desktop.
+  </p>
+
+  <h2>One-way sync: what happens if you edit in GnuCash afterward</h2>
+  <p>
+    Sync only ever flows <strong><span data-app-name></span> → GnuCash</strong>, never the other
+    direction. That's fine — editing a transaction in GnuCash desktop after it's been synced
+    (correcting the account, the amount, the date, whatever) won't break anything. But the app
+    won't notice on its own; there's no live connection watching your ledger for changes.
+  </p>
+  <p>
+    What it <em>does</em> do: any time you open an already-synced transaction for editing in the
+    app, it checks that one transaction against GnuCash's current copy. If they've diverged,
+    you'll see a warning banner with a <strong>"Pull values from GnuCash"</strong> option, which
+    copies GnuCash's current amount/category/wallet/date/note into the local record. This only
+    updates the app's own copy — it never writes anything back to GnuCash.
+  </p>
+
+  <h2>Troubleshooting</h2>
+  <p><strong>"Anonymous access is disabled" / 401 errors</strong> — you forgot the
+    <code>Authorization: Bearer ...</code> header, or your JWT doesn't match the
+    <code>jwt-secret</code> in <code>postgrest.conf</code>. Double check both.</p>
+  <p><strong>PostgREST doesn't see a function/table you just created or changed</strong> — PostgREST
+    caches its schema at startup. Run <code>NOTIFY pgrst, 'reload schema';</code> via
+    <code>psql</code> to refresh it live, or restart the <code>postgrest</code> service.</p>
+  <p><strong>GnuCash desktop won't open the database ("could not obtain the lock")</strong> — check
+    <code>SELECT * FROM gnclock;</code> in <code>psql</code>. A stale row from an earlier failed
+    connection attempt can block new ones; if you're sure nothing else has the file open,
+    <code>DELETE FROM gnclock;</code> clears it.</p>
+  <p><strong>App can't connect over plain <code>http://</code></strong> — this is expected and
+    already handled on Android for a VPN-only <code>http://</code> PostgREST setup. If you're using
+    a reverse proxy with HTTPS instead, use the <code>https://</code> URL and this doesn't apply.</p>
+  <p><strong>"permission denied for table ..."</strong> when calling <code>sync_transaction</code> —
+    this actually means it's working as designed. <code>gnucash_app_user</code> has no direct table
+    access; all its capability comes through the one function. If a <em>different</em> error like
+    this shows up from GnuCash desktop itself, double check you connected desktop using
+    <code>gnucash_owner</code>, not <code>gnucash_app_user</code>.</p>
+
+  <h2>FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-q">Can I use the same PostgREST/database setup for multiple phones?</div>
+    <p style="margin:0;">Yes — generate one JWT per device if you'd like to be able to revoke
+      access to just one later (there's no built-in revocation besides rotating the
+      <code>jwt-secret</code>, which invalidates every JWT at once), or share the same one, since
+      this is designed for single-user/self-hosted use.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What if I want to stop syncing?</div>
+    <p style="margin:0;">Turn the sync toggle off in Settings — the app falls back to local-only
+      saving immediately, nothing about your GnuCash setup needs to change.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Does this ever sync income or budgets?</div>
+    <p style="margin:0;">No — GnuCash Sync is expense-only by design. Income and budgets stay in
+      the app only.</p>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">If I edit a synced transaction in GnuCash desktop, does it pick up the change automatically?</div>
+    <p style="margin:0;">No — see "One-way sync" above. The app only checks for drift when you open
+      that specific transaction for editing, and only offers to pull GnuCash's values in, never
+      push the app's out.</p>
+  </div>
+
+</main>
+<footer>Forstra Digital · <span data-app-name></span> beta</footer>
+
+<script src="spendaware-app-name.js"></script>
+</body>
+</html>

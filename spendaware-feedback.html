@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Feedback — {APP_NAME} | Forstra Digital</title>
+<meta name="description" content="Tried {APP_NAME}? Tell us what worked, what didn't, and what you'd want next."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#1a2744;--paper:#f4f6fb;--accent:#1a7ab5;--teal:#1e9aa0;
+    --muted:#4a5872;--line:#c2d3e5;--err:#b23b3b;--err-bg:#fbe9e9;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  }
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;}
+  a{color:var(--accent);}
+  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(244,246,251,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-logo{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-decoration:none;color:var(--ink);font-weight:500;}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .nav-links a:hover{color:var(--accent);}
+  main{max-width:640px;margin:0 auto;padding:4rem 4rem 6rem;}
+  .eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:1.2rem;display:flex;align-items:center;gap:0.8rem;}
+  .eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--teal);}
+  h1{font-family:var(--serif);font-size:clamp(1.9rem,4vw,2.6rem);font-weight:900;line-height:1.15;letter-spacing:-0.02em;margin-bottom:1rem;}
+  .lede{color:var(--muted);font-size:1rem;line-height:1.8;margin-bottom:2.2rem;}
+  form{display:flex;flex-direction:column;gap:1.2rem;}
+  label{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;display:block;}
+  input,textarea{width:100%;font-family:var(--sans);font-size:0.95rem;color:var(--ink);background:#fff;border:1px solid var(--line);padding:0.85rem 1rem;}
+  input:focus,textarea:focus{outline:none;border-color:var(--teal);}
+  textarea{min-height:150px;resize:vertical;}
+  .hint{font-size:0.78rem;color:var(--muted);margin-top:0.4rem;}
+  button{background:var(--teal);color:#fff;padding:0.9rem 1.8rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;border:none;cursor:pointer;align-self:flex-start;transition:background 0.2s;}
+  button:hover:not(:disabled){background:var(--ink);}
+  button:disabled{opacity:0.5;cursor:default;}
+  .status{padding:1rem 1.2rem;font-size:0.9rem;display:none;}
+  .status.success{display:block;background:#e6f4ed;border:1px solid #8fc9a8;color:#1f6b3f;}
+  .status.error{display:block;background:var(--err-bg);border:1px solid #e0a3a3;color:var(--err);}
+  footer{max-width:640px;margin:0 auto;padding:0 4rem 4rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+  @media(max-width:760px){nav{padding:1rem 1.5rem;}.nav-links{gap:1.2rem;}main,footer{padding-left:1.5rem;padding-right:1.5rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Forstra Digital</a>
+  <ul class="nav-links">
+    <li><a href="spendaware.html">{APP_NAME}</a></li>
+    <li><a href="spendaware-gnucash-setup.html">GnuCash setup</a></li>
+    <li><a href="spendaware-privacy.html">Privacy</a></li>
+  </ul>
+</nav>
+
+<main>
+  <div class="eyebrow">Feedback</div>
+  <h1>Tell us how it went</h1>
+  <p class="lede">
+    This is an early beta, and feedback is genuinely how it gets better — bugs, confusing bits,
+    features you wanted, or just "this worked great." Anything's useful.
+  </p>
+
+  <form id="feedback-form">
+    <div>
+      <label for="email">Email (optional, only if you want a reply)</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com"/>
+    </div>
+    <div>
+      <label for="message">Your feedback</label>
+      <textarea id="message" name="message" required maxlength="4900" placeholder="What did you try, what happened, what did you expect?"></textarea>
+      <div class="hint">This is a write-only form — submissions aren't publicly visible to anyone but Forstra Digital.</div>
+    </div>
+    <button type="submit" id="submit-btn">Send feedback</button>
+    <div class="status" id="status-success">Thanks — this was received. If you left an email and it needs a reply, you'll hear back.</div>
+    <div class="status" id="status-error">Something went wrong sending this. Please try again in a moment, or email <a href="mailto:consult@forstradigital.com">consult@forstradigital.com</a> directly.</div>
+  </form>
+</main>
+<footer>Forstra Digital · <span data-app-name></span> beta</footer>
+
+<script src="spendaware-app-name.js"></script>
+<script>
+  const SUPABASE_URL = 'https://mthbsuzdkmzihcvazcoc.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10aGJzdXpka216aWhjdmF6Y29jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNjc5NDYsImV4cCI6MjA5NjY0Mzk0Nn0.zkV7aPzN4cach43pz7aC1xnl79Y-D1I7YDwEGNuNcyk';
+
+  const form = document.getElementById('feedback-form');
+  const btn = document.getElementById('submit-btn');
+  const success = document.getElementById('status-success');
+  const error = document.getElementById('status-error');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    success.style.display = 'none';
+    error.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/product_feedback`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email || null,
+          message,
+          source: 'spendaware_web',
+        }),
+      });
+      if (!res.ok) throw new Error('request failed');
+      form.reset();
+      success.style.display = 'block';
+    } catch (err) {
+      error.style.display = 'block';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send feedback';
+    }
+  });
+</script>
+</body>
+</html>
