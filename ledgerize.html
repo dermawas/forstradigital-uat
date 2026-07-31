@@ -79,6 +79,12 @@
   .honest-note{border-left:3px solid var(--teal);background:#fff;padding:1rem 1.4rem;font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:1.2rem;}
   .honest-note strong{color:var(--ink);}
 
+  /* Real screenshots */
+  .screens{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;}
+  .screen-item{text-align:center;}
+  .screen-item img{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block;margin-bottom:0.7rem;box-shadow:0 6px 20px rgba(26,39,68,0.1);}
+  .screen-item .cap{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);}
+
   footer{padding:2.5rem 0 4rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center;}
   .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
   .footer-links a{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
@@ -91,6 +97,7 @@
     .cards{grid-template-columns:1fr;}
     .steps{grid-template-columns:1fr 1fr;}
     .diff-compare{grid-template-columns:1fr;}
+    .screens{grid-template-columns:1fr 1fr;}
   }
 </style>
 </head>
@@ -171,6 +178,33 @@
       <strong>Honest about the AI:</strong> it does the first ~90% of the work — extracting items and
       guessing categories. You review and adjust before anything saves. It doesn't learn your
       preferences or "self-improve" over time; it's a well-scoped assistant, not autopilot.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">See it in action</div>
+    <div class="section-title">A real 20-item receipt, scanned and categorized</div>
+    <p class="sub" style="margin-bottom:1.8rem;">
+      An actual supermarket receipt run through <span data-app-name></span> — no cropping, no
+      cherry-picking, just what the app actually produced.
+    </p>
+    <div class="screens">
+      <div class="screen-item">
+        <img src="assets/ledgerize-screens/step1-photo.jpg" alt="A real, creased supermarket receipt with 20 items"/>
+        <div class="cap">1. The receipt</div>
+      </div>
+      <div class="screen-item">
+        <img src="assets/ledgerize-screens/step2-items.jpg" alt="Extracted line items with a suggested category next to each one"/>
+        <div class="cap">2–3. Items + categories</div>
+      </div>
+      <div class="screen-item">
+        <img src="assets/ledgerize-screens/step3-categories.jpg" alt="Creating a new category for an item mid-review"/>
+        <div class="cap">Adjust anything</div>
+      </div>
+      <div class="screen-item">
+        <img src="assets/ledgerize-screens/step4-save.jpg" alt="The finished spend breakdown by category"/>
+        <div class="cap">4. Saved &amp; categorized</div>
+      </div>
     </div>
   </section>
 
