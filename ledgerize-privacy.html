@@ -91,7 +91,7 @@
     <tr>
       <td>Receipt photos (only if you use Scan Receipt)</td>
       <td class="muted"><strong>Not stored.</strong> Sent directly to our backend, forwarded once to
-        Google's Gemini API for extraction, then discarded. Only the image's size in kilobytes,
+        a third-party AI provider for extraction, then discarded. Only the image's size in kilobytes,
         whether the scan succeeded, and a timestamp are logged, for cost tracking.</td>
       <td class="muted">Auto-filling a receipt's line items and categories</td>
     </tr>
@@ -121,9 +121,9 @@
   <ul>
     <li><strong>Supabase</strong> — hosts our database and authentication. Your account and
       transaction data live there, protected by row-level security.</li>
-    <li><strong>Google Gemini API</strong> — processes a receipt photo at the moment you scan one,
-      to extract line items and suggest categories. The photo itself passes through; we don't keep
-      a copy.</li>
+    <li><strong>A third-party AI provider</strong> — processes a receipt photo at the moment you scan
+      one, to extract line items and suggest categories. The photo itself passes through; we don't
+      keep a copy.</li>
     <li><strong>Google AdMob</strong> — shows ads to free-tier users and collects the advertising
       identifiers standard to any AdMob-integrated app, per Google's own policies.</li>
     <li>We do not sell your data to anyone, for any reason.</li>
