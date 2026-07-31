@@ -48,9 +48,9 @@
 <nav>
   <a class="nav-logo" href="/">Forstra Digital</a>
   <ul class="nav-links">
-    <li><a href="spendaware.html">{APP_NAME}</a></li>
-    <li><a href="spendaware-gnucash-setup.html">GnuCash setup</a></li>
-    <li><a href="spendaware-privacy.html">Privacy</a></li>
+    <li><a href="ledgerize.html">{APP_NAME}</a></li>
+    <li><a href="ledgerize-gnucash-setup.html">GnuCash setup</a></li>
+    <li><a href="ledgerize-privacy.html">Privacy</a></li>
   </ul>
 </nav>
 
@@ -79,7 +79,7 @@
 </main>
 <footer>Forstra Digital · <span data-app-name></span> beta</footer>
 
-<script src="spendaware-app-name.js"></script>
+<script src="ledgerize-app-name.js"></script>
 <script>
   const SUPABASE_URL = 'https://mthbsuzdkmzihcvazcoc.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im10aGJzdXpka216aWhjdmF6Y29jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEwNjc5NDYsImV4cCI6MjA5NjY0Mzk0Nn0.zkV7aPzN4cach43pz7aC1xnl79Y-D1I7YDwEGNuNcyk';
@@ -110,7 +110,7 @@
         body: JSON.stringify({
           email: email || null,
           message,
-          source: 'spendaware_web',
+          source: 'ledgerize_web',
         }),
       });
       if (!res.ok) throw new Error('request failed');
