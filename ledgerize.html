@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{APP_NAME} — expense tracking with optional GnuCash sync | Forstra Digital</title>
-<meta name="description" content="{APP_NAME} is an early beta expense tracker with AI-assisted receipt scanning and optional one-way GnuCash sync. Shared directly for market testing, not yet on Google Play."/>
+<title>{APP_NAME} — scan receipts, skip the typing | Forstra Digital</title>
+<meta name="description" content="{APP_NAME} turns supermarket receipts into itemized, categorized expenses automatically, so you can track spending without typing everything yourself."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -50,6 +50,35 @@
   .card .tag{display:inline-block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;}
   ul.plain{list-style:none;color:var(--muted);font-size:0.95rem;line-height:2;}
   ul.plain li::before{content:'—';color:var(--teal);margin-right:0.6rem;}
+
+  /* How-it-works 4-step flow */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+  .step-num{display:inline-flex;align-items:center;justify-content:center;width:1.8rem;height:1.8rem;background:var(--teal);color:#fff;font-family:var(--mono);font-size:0.85rem;border-radius:50%;margin-bottom:0.9rem;}
+  .step h3{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+  .step p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+
+  /* Differentiator: item-level categorization example */
+  .diff-compare{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.8rem;}
+  .diff-col{border:1px solid var(--line);background:#fff;padding:1.4rem 1.6rem;}
+  .diff-col.against{opacity:0.75;}
+  .diff-col .tag{display:block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem;}
+  .diff-col.us .tag{color:var(--teal);}
+  .receipt-line{font-family:var(--mono);font-size:0.9rem;color:var(--ink);padding:0.8rem 0;}
+  table.item-table{width:100%;border-collapse:collapse;font-size:0.88rem;}
+  table.item-table th{text-align:left;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);padding-bottom:0.6rem;border-bottom:1px solid var(--line);}
+  table.item-table td{padding:0.55rem 0;border-bottom:1px solid var(--line);}
+  table.item-table tr:last-child td{border-bottom:none;}
+  table.item-table td:last-child{color:var(--teal);font-family:var(--mono);font-size:0.82rem;text-align:right;}
+
+  /* Small, nav-weight GnuCash mention — deliberately not a full section card */
+  .mini-link-row{display:flex;flex-wrap:wrap;gap:0.8rem 2rem;align-items:center;padding:1.4rem 0;}
+  .mini-link-row a{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.03em;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+  .mini-link-row a:hover{color:var(--teal);}
+  .mini-link-row a::after{content:'→';}
+
+  .honest-note{border-left:3px solid var(--teal);background:#fff;padding:1rem 1.4rem;font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:1.2rem;}
+  .honest-note strong{color:var(--ink);}
+
   footer{padding:2.5rem 0 4rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center;}
   .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
   .footer-links a{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
@@ -60,6 +89,8 @@
     .nav-links{gap:1.2rem;}
     main{padding:0 1.5rem;}
     .cards{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .diff-compare{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -77,18 +108,17 @@
 <main>
   <section class="hero">
     <div class="eyebrow">Beta · market test</div>
-    <h1><span data-app-name></span> tracks what you spend, <em>without the manual entry</em></h1>
+    <h1>Stop typing expenses. <em>Scan receipts instead.</em></h1>
     <p class="sub">
-      Log expenses by hand, or scan a receipt and let AI split it into categories for you.
-      If you keep your books in GnuCash, <span data-app-name></span> can optionally sync
-      every expense straight into your ledger as a real, balanced double-entry transaction —
-      entirely one-way, entirely on your own self-hosted setup.
+      <span data-app-name></span> reads your receipts, extracts individual items, and suggests
+      spending categories automatically. Review, adjust if needed, and save — no manual entry
+      required, even for a 40-item supermarket run.
     </p>
     <div class="actions">
-      <a class="btn-primary" href="https://github.com/dermawas/forstradigital/releases/latest/download/app-release.apk">Download the APK</a>
-      <a class="btn-secondary" href="ledgerize-gnucash-setup.html">GnuCash setup guide</a>
+      <a class="btn-primary" href="https://github.com/dermawas/ledgerize/releases/latest/download/app-release.apk">Download the APK</a>
+      <a class="btn-secondary" href="ledgerize-feedback.html">Send feedback</a>
     </div>
-    <div class="version-note">Android, direct install · <a href="https://github.com/dermawas/forstradigital/releases" style="color:inherit;">see all releases</a></div>
+    <div class="version-note">Android, direct install · <a href="https://github.com/dermawas/ledgerize/releases" style="color:inherit;">see all releases</a></div>
 
     <div class="beta-banner">
       <strong>What "beta" means here</strong>
@@ -101,53 +131,95 @@
   </section>
 
   <section>
-    <div class="section-label">What it does</div>
-    <div class="section-title">Two ways in, one place it all lands</div>
-    <div class="cards">
-      <div class="card">
-        <div class="tag">Manual</div>
-        <h3>Wallets, categories, budgets</h3>
-        <p>Multiple wallets (cash, bank, credit card, e-wallet), custom categories, and monthly
-          budgets with a spend breakdown by week, month, or year.</p>
+    <div class="section-label">The actual problem</div>
+    <div class="section-title">Expense tracking doesn't fail because you don't care about money</div>
+    <p class="sub" style="margin-bottom:0;">
+      It fails because entering expenses is tedious. Logging a single coffee purchase is easy.
+      Logging a supermarket receipt with 40 individual items isn't — so most people either dump
+      the whole thing into one vague category, or just stop tracking altogether.
+      <span data-app-name></span> exists to remove that specific friction, not to be
+      "another budgeting app."
+    </p>
+  </section>
+
+  <section>
+    <div class="section-label">How it works</div>
+    <div class="section-title">Photo → items → categories → save</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Take a photo</h3>
+        <p>Snap your receipt — a quick grocery run or a big multi-item shop, either works.</p>
       </div>
-      <div class="card">
-        <div class="tag">AI-assisted</div>
-        <h3>Scan a receipt</h3>
-        <p>Photograph a receipt and a backend-hosted AI splits it into line items with suggested
-          categories — including multi-item receipts, split correctly across categories. A limited
-          number of scans are free each day, supported by ads; a paid tier with a larger allowance
-          is planned.</p>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>AI extracts the items</h3>
+        <p>Milk, shampoo, detergent, snacks, and everything else — split out as individual lines.</p>
       </div>
-      <div class="card">
-        <div class="tag">Optional</div>
-        <h3>GnuCash Sync</h3>
-        <p>Point the app at your own self-hosted PostgREST layer in front of your GnuCash
-          PostgreSQL book, and expenses sync over as real, balanced transactions —
-          indistinguishable from ones you entered in GnuCash desktop yourself.</p>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Review the categories</h3>
+        <p><span data-app-name></span> suggests a category per item. Change anything before saving.</p>
       </div>
-      <div class="card">
-        <div class="tag">Your data</div>
-        <h3>You control the ledger</h3>
-        <p><span data-app-name></span> never connects to your GnuCash database directly, never sees your real
-          database credentials, and can only ever insert new expenses through one narrowly-scoped
-          function — never read balances or existing history, never alter your schema.</p>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Save</h3>
+        <p>Your spending record is ready — itemized, categorized, no typing involved.</p>
+      </div>
+    </div>
+    <div class="honest-note">
+      <strong>Honest about the AI:</strong> it does the first ~90% of the work — extracting items and
+      guessing categories. You review and adjust before anything saves. It doesn't learn your
+      preferences or "self-improve" over time; it's a well-scoped assistant, not autopilot.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Why it's different</div>
+    <div class="section-title">Item-level categorization, not just a total</div>
+    <p class="sub" style="margin-bottom:1.8rem;">
+      Most expense apps — even ones with receipt scanning — only capture the merchant and the
+      total. <span data-app-name></span> captures what was actually bought.
+    </p>
+    <div class="diff-compare">
+      <div class="diff-col against">
+        <span class="tag">What most apps capture</span>
+        <div class="receipt-line">Hypermart — Rp 850,000</div>
+      </div>
+      <div class="diff-col us">
+        <span class="tag">What <span data-app-name></span> captures</span>
+        <table class="item-table">
+          <tr><th>Item</th><th>Category</th></tr>
+          <tr><td>Milk</td><td>Groceries</td></tr>
+          <tr><td>Shampoo</td><td>Personal Care</td></tr>
+          <tr><td>Detergent</td><td>Household</td></tr>
+          <tr><td>Chocolate</td><td>Snacks</td></tr>
+        </table>
       </div>
     </div>
   </section>
 
   <section>
+    <div class="section-label">Also included</div>
+    <div class="section-title">Budgets, wallets, and a spend breakdown</div>
+    <p class="sub" style="margin-bottom:0;">
+      Multiple wallets (cash, bank, credit card, e-wallet), custom categories, and monthly budgets
+      with a breakdown by week, month, or year — the everyday tracking basics, built on top of the
+      itemized data the receipt scanner already gives you.
+    </p>
+  </section>
+
+  <section>
     <div class="section-label">Who this beta is for</div>
     <div class="section-title">Comfortable installing an APK directly</div>
-    <p class="sub" style="margin-bottom:1.2rem;">
-      This is aimed at people already comfortable self-hosting things — GnuCash users especially,
-      since GnuCash Sync assumes you're willing to run a small PostgREST service yourself. If that's
-      not you yet, the app works perfectly well standalone with no GnuCash setup at all.
-    </p>
     <ul class="plain">
       <li>You're fine sideloading an APK and allowing "install unknown apps" once</li>
-      <li>You optionally already run (or are willing to run) GnuCash against a PostgreSQL-backed book</li>
       <li>You're OK with a beta that's still being actively shaped by feedback</li>
+      <li>You want to stop typing receipts by hand and are willing to try AI-assisted scanning to do it</li>
     </ul>
+    <div class="mini-link-row">
+      <a href="ledgerize-gnucash-setup.html">Already use GnuCash? Optional one-way sync is available</a>
+    </div>
   </section>
 
   <footer>
@@ -155,7 +227,7 @@
       <a href="ledgerize-gnucash-setup.html">GnuCash setup guide</a>
       <a href="ledgerize-privacy.html">Privacy policy</a>
       <a href="ledgerize-feedback.html">Send feedback</a>
-      <a href="https://github.com/dermawas/forstradigital/releases">All releases</a>
+      <a href="https://github.com/dermawas/ledgerize/releases">All releases</a>
     </div>
     <div class="footer-copy">Forstra Digital · <span data-app-name></span> beta</div>
   </footer>
