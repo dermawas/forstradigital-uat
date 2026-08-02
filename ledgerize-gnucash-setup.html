@@ -221,6 +221,13 @@ sudo systemctl status postgrest</code></pre>
     settings screen's account list.
   </p>
   <p>
+    <strong>If you run a multi-currency GnuCash book</strong>, mapping a wallet to an account
+    warns you if the wallet's currency doesn't match that account's actual currency — sync writes
+    amounts as-is with no conversion, so a mismatched mapping (e.g. an IDR wallet mapped to a USD
+    account) would otherwise silently record the wrong number. You can dismiss the warning and map
+    anyway if that's genuinely what you want.
+  </p>
+  <p>
     From here on, expenses you log will appear in your GnuCash ledger as normal, balanced
     transactions — indistinguishable from ones entered directly in GnuCash desktop.
   </p>
@@ -233,11 +240,17 @@ sudo systemctl status postgrest</code></pre>
     won't notice on its own; there's no live connection watching your ledger for changes.
   </p>
   <p>
-    What it <em>does</em> do: any time you open an already-synced transaction for editing in the
-    app, it checks that one transaction against GnuCash's current copy. If they've diverged,
-    you'll see a warning banner with a <strong>"Pull values from GnuCash"</strong> option, which
-    copies GnuCash's current amount/category/wallet/date/note into the local record. This only
-    updates the app's own copy — it never writes anything back to GnuCash.
+    What it <em>does</em> do: any time you open an already-synced, single-item transaction for
+    editing in the app, it checks that transaction against GnuCash's current copy. If they've
+    diverged, you'll see a warning banner with a <strong>"Pull values from GnuCash"</strong>
+    option, which copies GnuCash's current amount/category/wallet/date/note into the local record.
+    This only updates the app's own copy — it never writes anything back to GnuCash.
+  </p>
+  <p>
+    Multi-item receipts (individually editable items aren't supported yet) get a lighter version
+    of this: opening one flags whether GnuCash's total for that receipt no longer matches what's
+    saved locally, but without saying which item changed or offering anything to pull in — check
+    GnuCash desktop directly if you need the specifics.
   </p>
 
   <h2>Troubleshooting</h2>
