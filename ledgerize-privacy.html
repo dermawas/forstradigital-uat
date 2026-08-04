@@ -48,6 +48,19 @@
   footer{max-width:760px;margin:0 auto;padding:0 4rem 4rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
   @media(max-width:760px){nav{padding:1rem 1.5rem;}.nav-links{gap:1.2rem;}main,footer{padding-left:1.5rem;padding-right:1.5rem;}table{font-size:0.78rem;}}
 </style>
+<!-- PostHog analytics — added 2026-08-04. Anonymous pageviews + autocaptured
+     clicks only; session recording explicitly off, no identify() calls on
+     this site, so no cookie banner is needed. See CLAUDE.md's Analytics
+     section in the SpendAware repo for the full decision. -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_D2nKtcwDNaGUQx5VCmUK8gQjcf7rgQ37eQ7CkmnjQefA', {
+    api_host: 'https://eu.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only',
+    disable_session_recording: true,
+  })
+</script>
 </head>
 <body>
 
@@ -63,7 +76,7 @@
 <main>
   <div class="eyebrow">Legal</div>
   <h1>Privacy Policy</h1>
-  <div class="updated">Last updated: 30 July 2026 · Applies to the <span data-app-name></span> beta</div>
+  <div class="updated">Last updated: 4 August 2026 · Applies to the <span data-app-name></span> beta</div>
 
   <p class="lede">
     <span data-app-name></span> is made by Forstra Digital. This page explains, plainly, what the
@@ -112,6 +125,19 @@
       <td class="muted">Shown to free-tier users; ads help offset the real, per-scan cost of the AI
         used for receipt scanning. Removed entirely on the (planned) paid tier.</td>
     </tr>
+    <tr>
+      <td>App usage events (which screens/features get used — e.g. a receipt scan, a GnuCash sync,
+        switching Budget Mode)</td>
+      <td class="muted">PostHog, an EU-hosted analytics service. Events are keyed to an internal
+        account ID, never your email or display name.</td>
+      <td class="muted">Understanding which features are actually used, to guide what we build next</td>
+    </tr>
+    <tr>
+      <td>Anonymous pageviews and clicks on this website</td>
+      <td class="muted">PostHog, same EU-hosted service. Nothing here is tied to an account — this
+        site never calls identify(), which is why no cookie/consent banner is shown for it.</td>
+      <td class="muted">Understanding which pages and links are actually useful</td>
+    </tr>
   </table>
 
   <h2>Browsing without an account</h2>
@@ -130,6 +156,9 @@
       keep a copy.</li>
     <li><strong>Google AdMob</strong> — shows ads to free-tier users and collects the advertising
       identifiers standard to any AdMob-integrated app, per Google's own policies.</li>
+    <li><strong>PostHog</strong> — an EU-hosted analytics service. Collects anonymous pageviews/clicks
+      on this website, and app usage events keyed to an internal account ID (never your email or
+      name). Session recording is off everywhere we use it.</li>
     <li>We do not sell your data to anyone, for any reason.</li>
   </ul>
 
