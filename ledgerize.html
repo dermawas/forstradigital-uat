@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <title>Ledgerize — scan receipts, skip the typing | Forstra Digital</title>
-<meta name="description" content="Ledgerize turns supermarket receipts into itemized, categorized expenses automatically, so you can track spending without typing everything yourself."/>
+<meta name="description" content="Ledgerize turns receipts into itemized, categorized expenses — on your own device, with your own AI key. Open source, no account, no ads."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://forstradigital.com/ledgerize.html"/>
 <meta property="og:title" content="Ledgerize — scan receipts, skip the typing"/>
-<meta property="og:description" content="Ledgerize turns supermarket receipts into itemized, categorized expenses automatically, so you can track spending without typing everything yourself."/>
+<meta property="og:description" content="Ledgerize turns receipts into itemized, categorized expenses — on your own device, with your own AI key. Open source, no account, no ads."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -132,25 +132,34 @@
 
 <main>
   <section class="hero">
-    <div class="eyebrow">Beta · market test</div>
+    <div class="eyebrow">Open source · v2.0.0</div>
     <h1>Stop typing expenses. <em>Scan receipts instead.</em></h1>
     <p class="sub">
       <span data-app-name></span> reads your receipts, extracts individual items, and suggests
       spending categories automatically. Review, adjust if needed, and save — no manual entry
       required, even for a 40-item supermarket run.
     </p>
+    <p class="sub" style="margin-top:-0.6rem;">
+      <strong>No account. No server. No ads.</strong> Everything stays in a database on your phone,
+      and scanning runs on your own Google Gemini key. Open source under the GPLv3, so you can check
+      all of that rather than take our word for it.
+    </p>
     <div class="actions">
       <a class="btn-primary" href="https://github.com/dermawas/ledgerize/releases/latest/download/app-release.apk" onclick="window.posthog&&posthog.capture('download_apk_clicked')">Download the APK</a>
-      <a class="btn-secondary" href="ledgerize-feedback.html">Send feedback</a>
+      <a class="btn-secondary" href="https://github.com/dermawas/ledgerize">View the source</a>
     </div>
-    <div class="version-note">Android, direct install · <a href="https://github.com/dermawas/ledgerize/releases" style="color:inherit;">see all releases</a></div>
+    <div class="version-note">Android 7.0+, direct install · <a href="https://github.com/dermawas/ledgerize/releases" style="color:inherit;">all releases</a> · <a href="https://github.com/dermawas/ledgerize/blob/main/docs/USER_GUIDE.md" style="color:inherit;">user guide</a></div>
 
     <div class="beta-banner">
-      <strong>What "beta" means here</strong>
-      This build is shared directly with people who want to try it — it is not on the Google Play Store yet.
-      Android will warn you about installing an app from outside the Play Store; that's expected for a direct
-      install, not a sign something's wrong. You'll need to allow your browser to install unknown apps once.
-      Things may still be rough around the edges — that's exactly what this stage is for finding out.
+      <strong>Before you install</strong>
+      This is a direct install, not the Google Play Store — Android will warn you about installing
+      from an unknown source. That's expected for a sideloaded app, not a sign something's wrong;
+      you'll need to allow it once.
+      <br/><br/>
+      Two things worth knowing up front. <strong>Receipt scanning needs your own Google Gemini API
+      key</strong> — free to create, about a minute. And <strong>if you're upgrading from version
+      1.x, your existing data won't carry over</strong>: v1 stored data on a server that v2 doesn't
+      use, so export it from the old version first.
       <a href="ledgerize-feedback.html" style="color:inherit;text-decoration:underline;">Feedback is genuinely wanted →</a>
     </div>
   </section>
@@ -179,7 +188,8 @@
       <div class="step">
         <div class="step-num">2</div>
         <h3>AI extracts the items</h3>
-        <p>Milk, shampoo, detergent, snacks, and everything else — split out as individual lines.</p>
+        <p>Milk, shampoo, detergent, snacks, and everything else — split out as individual lines,
+          using your own Gemini API key.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
@@ -262,11 +272,35 @@
   </section>
 
   <section>
-    <div class="section-label">Who this beta is for</div>
-    <div class="section-title">Comfortable installing an APK directly</div>
+    <div class="section-label">Where your data goes</div>
+    <div class="section-title">Nowhere. That's the whole design.</div>
+    <p class="sub" style="margin-bottom:1.4rem;">
+      <span data-app-name></span> has no backend. There is no account to create, nothing to log into,
+      and no server of ours that ever sees a transaction. Your records live in a database on your
+      phone.
+    </p>
+    <ul class="plain">
+      <li><strong>Your own AI key.</strong> Scanning runs against a Google Gemini key you create,
+        stored in your phone's secure keystore. Your quota, your billing, your relationship with
+        Google — we're not in the middle of it.</li>
+      <li><strong>No ads, no subscription, no analytics.</strong> Nothing about how you use the app
+        is reported anywhere. Crash reporting exists but is off until you switch it on.</li>
+      <li><strong>Open source, GPLv3</strong> — the same licence as GnuCash. Read the code, build it
+        yourself, or fork it.</li>
+    </ul>
+    <div class="mini-link-row">
+      <a href="https://github.com/dermawas/ledgerize">Source on GitHub</a>
+      <a href="ledgerize-privacy.html">Full privacy policy</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Who this is for</div>
+    <div class="section-title">People who'd rather own their data than rent it</div>
     <ul class="plain">
       <li>You're fine sideloading an APK and allowing "install unknown apps" once</li>
-      <li>You're OK with a beta that's still being actively shaped by feedback</li>
+      <li>You'd rather create a free Google Gemini key than have someone else's server read your receipts</li>
+      <li>You want your financial records on your own device, not in somebody's cloud</li>
       <li>You want to stop typing receipts by hand and are willing to try AI-assisted scanning to do it</li>
     </ul>
     <div class="mini-link-row">
@@ -279,9 +313,10 @@
       <a href="ledgerize-gnucash-setup.html">GnuCash setup guide</a>
       <a href="ledgerize-privacy.html">Privacy policy</a>
       <a href="ledgerize-feedback.html">Send feedback</a>
+      <a href="https://github.com/dermawas/ledgerize">Source on GitHub</a>
       <a href="https://github.com/dermawas/ledgerize/releases">All releases</a>
     </div>
-    <div class="footer-copy">Forstra Digital · <span data-app-name></span> beta</div>
+    <div class="footer-copy">Forstra Digital · <span data-app-name></span> · open source, GPLv3</div>
   </footer>
 </main>
 

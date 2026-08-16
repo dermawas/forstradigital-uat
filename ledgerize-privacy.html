@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <title>Privacy Policy — Ledgerize | Forstra Digital</title>
-<meta name="description" content="What Ledgerize collects, why, and who it's shared with."/>
+<meta name="description" content="Ledgerize runs no server and collects nothing. Your data stays on your phone."/>
 <meta property="og:type" content="website"/>
 <meta property="og:url" content="https://forstradigital.com/ledgerize-privacy.html"/>
 <meta property="og:title" content="Privacy Policy — Ledgerize"/>
-<meta property="og:description" content="What Ledgerize collects, why, and who it's shared with."/>
+<meta property="og:description" content="Ledgerize runs no server and collects nothing. Your data stays on your phone."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
@@ -77,91 +77,109 @@
 <main>
   <div class="eyebrow">Legal</div>
   <h1>Privacy Policy</h1>
-  <div class="updated">Last updated: 4 August 2026 · Applies to the <span data-app-name></span> beta</div>
+  <div class="updated">Last updated: 16 August 2026 · Applies to <span data-app-name></span> 2.0.0 and later</div>
 
   <p class="lede">
-    <span data-app-name></span> is made by Forstra Digital. This page explains, plainly, what the
-    app collects, why, and who else ever touches it. If anything here is unclear, email
+    <span data-app-name></span> is made by Forstra Digital. The short version: <strong>we run no
+    server, and we receive none of your data.</strong> There is no account to create. Everything the
+    app records lives in a database on your phone. This page explains the few exceptions, all of
+    which you set up yourself. If anything is unclear, email
     <a href="mailto:consult@forstradigital.com">consult@forstradigital.com</a>.
   </p>
 
   <div class="limitation">
-    <strong>Honest limitation, stated up front</strong>
-    This is an early beta. It does not yet implement Google's full EU consent-management (UMP)
-    flow for ads, and there is no formal cookie/consent banner on this website. If you're in a
-    jurisdiction where that's required for your use of the app, please hold off until a later
-    release — we're not hiding this, it's simply not built yet.
+    <strong>Verify this rather than trust it</strong>
+    <span data-app-name></span> is open source under the GPLv3. Everything claimed on this page can
+    be checked against the code at
+    <a href="https://github.com/dermawas/ledgerize">github.com/dermawas/ledgerize</a>, and you can
+    build the app yourself from that source.
   </div>
 
-  <h2>What we collect, and why</h2>
+  <h2>What the app collects, and why</h2>
   <table>
     <tr><th>Data</th><th>Where it lives</th><th>Why</th></tr>
     <tr>
-      <td>Email, display name</td>
-      <td class="muted">Forstra's Supabase project</td>
-      <td class="muted">Account creation and login</td>
-    </tr>
-    <tr>
       <td>Wallets, categories, budgets, transactions</td>
-      <td class="muted">Forstra's Supabase project, protected by row-level security so only you can read your own data</td>
+      <td class="muted"><strong>Your phone only.</strong> A local database inside the app's private
+        storage. It is never uploaded anywhere, and we have no way to read it.</td>
       <td class="muted">The core function of the app — tracking your spending</td>
     </tr>
     <tr>
-      <td>Receipt photos (only if you use Scan Receipt)</td>
-      <td class="muted"><strong>Not stored.</strong> Sent directly to our backend, forwarded once to
-        a third-party AI provider for extraction, then discarded. Only the image's size in kilobytes,
-        whether the scan succeeded, and a timestamp are logged, for cost tracking.</td>
-      <td class="muted">Auto-filling a receipt's line items and categories</td>
+      <td>Your name, if you set one</td>
+      <td class="muted"><strong>Your phone only.</strong></td>
+      <td class="muted">Greeting you on the Home screen. That's all it's used for.</td>
+    </tr>
+    <tr>
+      <td>Your Google Gemini API key (only if you set up receipt scanning)</td>
+      <td class="muted"><strong>Your phone's secure keystore.</strong> Never transmitted anywhere
+        except to Google, as the credential for your own scan requests. There is no backup copy and
+        nowhere for one to go.</td>
+      <td class="muted">Authorising receipt scans against your own Google account and quota</td>
+    </tr>
+    <tr>
+      <td>Receipt photos (only when you tap Scan Receipt)</td>
+      <td class="muted">Sent from your phone <strong>directly to Google</strong> under your own API
+        key, and not stored by us — we are not in the path at all. Google's handling of that request
+        is governed by your own agreement with Google.</td>
+      <td class="muted">Reading the receipt's line items and suggesting categories</td>
     </tr>
     <tr>
       <td>GnuCash PostgREST URL &amp; access token (only if you enable GnuCash Sync)</td>
-      <td class="muted">Encrypted on-device storage, plus a backup copy in Forstra's Supabase so
-        reinstalling your phone doesn't lose the connection</td>
-      <td class="muted">Letting your phone talk to your own self-hosted GnuCash setup. We never see
-        or store your actual GnuCash database password.</td>
+      <td class="muted"><strong>Your phone's secure keystore only.</strong> No backup copy exists, so
+        reinstalling the app means entering them again.</td>
+      <td class="muted">Letting your phone talk to the GnuCash server you run. We never see your
+        GnuCash database password, and never connect to your database.</td>
     </tr>
     <tr>
-      <td>Advertising identifiers</td>
-      <td class="muted">Collected by Google AdMob per its own policies, not by us directly</td>
-      <td class="muted">Shown to free-tier users; ads help offset the real, per-scan cost of the AI
-        used for receipt scanning. Removed entirely on the (planned) paid tier.</td>
+      <td>Crash reports</td>
+      <td class="muted"><strong>Off by default.</strong> Only if you switch them on in Settings, an
+        anonymous error report and stack trace go to Sentry. No transactions, receipts, names, or
+        API keys are ever included. Builds compiled from source send nothing at all.</td>
+      <td class="muted">Diagnosing crashes. With no server, a stack trace is the only way we can see
+        what went wrong.</td>
     </tr>
     <tr>
-      <td>App usage events (which screens/features get used — e.g. a receipt scan, a GnuCash sync,
-        switching Budget Mode)</td>
-      <td class="muted">PostHog, an EU-hosted analytics service. Events are keyed to an internal
-        account ID, never your email or display name.</td>
-      <td class="muted">Understanding which features are actually used, to guide what we build next</td>
-    </tr>
-    <tr>
-      <td>Anonymous pageviews and clicks on this website</td>
-      <td class="muted">PostHog, same EU-hosted service. Nothing here is tied to an account — this
-        site never calls identify(), which is why no cookie/consent banner is shown for it.</td>
+      <td>Anonymous pageviews and clicks <em>on this website</em></td>
+      <td class="muted">PostHog, an EU-hosted analytics service. Nothing is tied to any identity —
+        this site never calls identify(), and session recording is off.</td>
       <td class="muted">Understanding which pages and links are actually useful</td>
     </tr>
   </table>
 
-  <h2>Browsing without an account</h2>
   <p>
-    You can look around the app without signing up. In that mode, nothing is collected or stored —
-    every write requires an authenticated account, enforced at the database level, not just in the
-    app's interface.
+    That table is exhaustive. There are no advertising identifiers, no product analytics inside the
+    app, no account, and no telemetry of any other kind.
   </p>
+
+  <div class="limitation">
+    <strong>One honest gap</strong>
+    This website has no formal cookie/consent banner for the anonymous pageview analytics described
+    above. That analytics is anonymous and carries no identity, but if a consent banner is required
+    in your jurisdiction, treat this as disclosed rather than solved — it isn't built yet. The app
+    itself is unaffected: it collects nothing.
+  </div>
 
   <h2>Who else sees this data</h2>
   <ul>
-    <li><strong>Supabase</strong> — hosts our database and authentication. Your account and
-      transaction data live there, protected by row-level security.</li>
-    <li><strong>A third-party AI provider</strong> — processes a receipt photo at the moment you scan
-      one, to extract line items and suggest categories. The photo itself passes through; we don't
-      keep a copy.</li>
-    <li><strong>Google AdMob</strong> — shows ads to free-tier users and collects the advertising
-      identifiers standard to any AdMob-integrated app, per Google's own policies.</li>
-    <li><strong>PostHog</strong> — an EU-hosted analytics service. Collects anonymous pageviews/clicks
-      on this website, and app usage events keyed to an internal account ID (never your email or
-      name). Session recording is off everywhere we use it.</li>
-    <li>We do not sell your data to anyone, for any reason.</li>
+    <li><strong>Google</strong> — receives a receipt image at the moment you scan one, under your own
+      API key. Nothing else, and only when you scan.</li>
+    <li><strong>Sentry</strong> — receives a crash report only if you have switched crash reporting
+      on. Off by default.</li>
+    <li><strong>PostHog</strong> — anonymous pageviews and clicks on this website only. Nothing from
+      inside the app.</li>
+    <li><strong>Forstra Digital</strong> — receives nothing. We run no server for this app.</li>
+    <li>We do not sell your data to anyone, for any reason. There is nothing to sell.</li>
   </ul>
+
+  <h2>If you used version 1.x</h2>
+  <p>
+    Earlier versions did work differently: they required an account, stored your data in a
+    Forstra-hosted database, showed ads, and sent receipt photos through our own backend using our
+    API key. Version 2.0.0 removed all of that. Data from a 1.x account does not carry over — export
+    it from the older version before upgrading if you want to keep it. To have data from a 1.x
+    account deleted from our records, email
+    <a href="mailto:consult@forstradigital.com">consult@forstradigital.com</a>.
+  </p>
 
   <h2>Your GnuCash ledger specifically</h2>
   <p>
@@ -173,18 +191,23 @@
     detail is in the <a href="ledgerize-gnucash-setup.html">setup guide</a>.
   </p>
 
-  <h2>How long we keep things</h2>
+  <h2>How long things are kept, and how to delete them</h2>
   <p>
-    Account and transaction data is kept for as long as your account exists. Deleting your account
-    deletes your wallets, categories, budgets, and transactions. Receipt photos are never retained
-    in the first place, so there's nothing to delete there. To request account deletion, email
-    <a href="mailto:consult@forstradigital.com">consult@forstradigital.com</a>.
+    Your data stays on your phone until you delete it. <strong>Settings → Erase All Data</strong>
+    removes everything the app stores, and uninstalling the app does the same. Neither requires
+    asking us, because we hold nothing to release. Note there is no backup and no undo — export to
+    CSV first if you might want the data later.
+  </p>
+  <p>
+    Anything you already synced to GnuCash stays in your own GnuCash ledger, which the app never
+    deletes from.
   </p>
 
   <h2>Changes to this policy</h2>
   <p>
-    This is a beta and things will change as the app does. We'll update the "last updated" date
-    above when this page changes; check back occasionally if you want to stay current.
+    We'll update the "last updated" date above whenever this page changes. Because the app is open
+    source, you can also see exactly what changed and when in the
+    <a href="https://github.com/dermawas/ledgerize">public repository</a>.
   </p>
 
   <h2>Contact</h2>
@@ -193,7 +216,7 @@
     You can also use the <a href="ledgerize-feedback.html">feedback form</a> for general comments.
   </p>
 </main>
-<footer>Forstra Digital · <span data-app-name></span> beta</footer>
+<footer>Forstra Digital · <span data-app-name></span> · open source, GPLv3</footer>
 
 <script src="ledgerize-app-name.js"></script>
 </body>
