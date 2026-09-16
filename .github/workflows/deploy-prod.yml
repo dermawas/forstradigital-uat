@@ -20,10 +20,16 @@ jobs:
 
           git clone https://x-access-token:${TOKEN}@github.com/dermawas/forstradigital.git production
 
+          # The clone above lands at ./production, which is inside this rsync's
+          # own source. Without the exclude it copies itself one level deeper on
+          # every run, which is how production/production/ ended up in prod.
+          # Excluded paths are also protected from --delete, so the copy already
+          # sitting in prod is left alone rather than removed by this change.
           rsync -av --delete \
             --exclude '.git' \
             --exclude '.github' \
             --exclude 'CNAME' \
+            --exclude '/production' \
             ./ production/
 
           cd production
