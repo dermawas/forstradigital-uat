@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<title>ForstrAI, a chatbot that answers from your own documents | Forstra Digital</title>
+<meta name="description" content="ForstrAI answers your customers and your team from your own documents, inside Telegram. When your material does not cover a question, it says so instead of guessing."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://forstradigital.com/forstrai.html"/>
+<meta property="og:title" content="ForstrAI, a chatbot that answers from your own documents"/>
+<meta property="og:description" content="ForstrAI answers your customers and your team from your own documents, inside Telegram. When your material does not cover a question, it says so instead of guessing."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --ink:#1a2744;--paper:#f4f6fb;--accent:#1a7ab5;--teal:#1e9aa0;
+    --muted:#4a5872;--line:#c2d3e5;
+    --serif:'Playfair Display',Georgia,serif;
+    --sans:'DM Sans',sans-serif;--mono:'DM Mono',monospace;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;}
+  a{color:inherit;}
+  nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 4rem;background:rgba(244,246,251,0.93);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-logo{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.06em;text-decoration:none;color:var(--ink);font-weight:500;}
+  .nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
+  .nav-links a{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .nav-links a:hover{color:var(--accent);}
+  main{max-width:920px;margin:0 auto;padding:0 4rem;}
+  .hero{padding:5rem 0 3rem;border-bottom:1px solid var(--line);}
+  .eyebrow{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.8rem;}
+  .eyebrow::before{content:'';display:block;width:2rem;height:1px;background:var(--teal);}
+  h1{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;line-height:1.1;letter-spacing:-0.02em;margin-bottom:1.4rem;}
+  h1 em{font-style:italic;color:var(--teal);}
+  .sub{font-size:1.05rem;color:var(--muted);max-width:56ch;line-height:1.8;margin-bottom:2.2rem;}
+  .actions{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1rem;}
+  .btn-primary{background:var(--teal);color:#fff;padding:0.9rem 1.8rem;font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;display:inline-block;transition:background 0.2s,transform 0.2s;}
+  .btn-primary:hover{background:var(--ink);transform:translateY(-2px);}
+  .btn-secondary{font-family:var(--mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.4rem;}
+  .btn-secondary:hover{color:var(--ink);}
+  .btn-secondary::after{content:'\2192';}
+  .version-note{font-family:var(--mono);font-size:0.68rem;color:var(--muted);}
+  section{padding:3.5rem 0;border-bottom:1px solid var(--line);}
+  .section-label{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:0.8rem;display:flex;align-items:center;gap:0.7rem;}
+  .section-label::before{content:'';display:inline-block;width:1.5rem;height:1px;background:var(--teal);}
+  .section-title{font-family:var(--serif);font-size:clamp(1.5rem,2.5vw,2.1rem);font-weight:700;line-height:1.15;letter-spacing:-0.01em;margin-bottom:1.3rem;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+  .card{border:1px solid var(--line);background:#fff;padding:1.6rem;}
+  .card h3{font-family:var(--serif);font-size:1.05rem;font-weight:700;margin-bottom:0.6rem;}
+  .card p{font-size:0.9rem;color:var(--muted);line-height:1.7;}
+  ul.plain{list-style:none;color:var(--muted);font-size:0.95rem;line-height:2;}
+  ul.plain li::before{content:'\2014';color:var(--teal);margin-right:0.6rem;}
+
+  /* Four-step flow, same shape as the Ledgerize page. */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+  .step-num{display:inline-flex;align-items:center;justify-content:center;width:1.8rem;height:1.8rem;background:var(--teal);color:#fff;font-family:var(--mono);font-size:0.85rem;border-radius:50%;margin-bottom:0.9rem;}
+  .step h3{font-family:var(--serif);font-size:1rem;font-weight:700;margin-bottom:0.4rem;}
+  .step p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
+
+  /* Side-by-side comparison, same shape as the Ledgerize item-level example. */
+  .diff-compare{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.8rem;}
+  .diff-col{border:1px solid var(--line);background:#fff;padding:1.4rem 1.6rem;}
+  .diff-col.against{opacity:0.75;}
+  .diff-col .tag{display:block;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.9rem;}
+  .diff-col.us .tag{color:var(--teal);}
+  .chat-q{font-family:var(--mono);font-size:0.82rem;color:var(--ink);padding-bottom:0.7rem;border-bottom:1px solid var(--line);margin-bottom:0.9rem;}
+  .chat-a{font-size:0.88rem;color:var(--muted);line-height:1.7;}
+  .chat-verdict{display:block;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;text-transform:uppercase;margin-top:0.9rem;color:var(--muted);}
+  .diff-col.us .chat-verdict{color:var(--teal);}
+
+  .mini-link-row{display:flex;flex-wrap:wrap;gap:0.8rem 2rem;align-items:center;padding:1.4rem 0;}
+  .mini-link-row a{font-family:var(--mono);font-size:0.78rem;letter-spacing:0.03em;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;}
+  .mini-link-row a:hover{color:var(--teal);}
+  .mini-link-row a::after{content:'\2192';}
+
+  .honest-note{border-left:3px solid var(--teal);background:#fff;padding:1rem 1.4rem;font-size:0.88rem;color:var(--muted);line-height:1.7;margin-top:1.2rem;}
+  .honest-note strong{color:var(--ink);}
+
+  footer{padding:2.5rem 0 4rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:center;}
+  .footer-links{display:flex;flex-wrap:wrap;gap:1.5rem;}
+  .footer-links a{font-family:var(--mono);font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-decoration:none;}
+  .footer-links a:hover{color:var(--teal);}
+  .footer-copy{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;}
+  @media(max-width:760px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{gap:1.2rem;}
+    main{padding:0 1.5rem;}
+    .cards{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr;}
+    .diff-compare{grid-template-columns:1fr;}
+  }
+</style>
+<!-- PostHog analytics, matching the other product pages. Anonymous pageviews
+     and autocaptured clicks only; session recording explicitly off and no
+     identify() calls, so no cookie banner is needed. -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_D2nKtcwDNaGUQx5VCmUK8gQjcf7rgQ37eQ7CkmnjQefA', {
+    api_host: 'https://eu.i.posthog.com',
+    defaults: '2026-05-30',
+    person_profiles: 'identified_only',
+    disable_session_recording: true,
+  })
+</script>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">Forstra Digital</a>
+  <ul class="nav-links">
+    <li><a href="/#services">Services</a></li>
+    <li><a href="ledgerize.html">Ledgerize</a></li>
+    <li><a href="/#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Grounded AI &middot; Telegram</div>
+    <h1>Stop answering the same questions. <em>Let your documents do it.</em></h1>
+    <p class="sub">
+      ForstrAI is a chatbot that answers from your own material. Your handbook, your proposals,
+      your spec sheets, your website. It lives in Telegram, where your team and your customers
+      already are, so nobody has to learn a new tool to ask a question.
+    </p>
+    <p class="sub" style="margin-top:-0.6rem;">
+      <strong>It answers from what you gave it, and nothing else.</strong> When your material does
+      not cover a question, it says so, rather than inventing something that sounds right.
+    </p>
+    <div class="actions">
+      <a class="btn-primary" href="/#contact" onclick="window.posthog&amp;&amp;posthog.capture('forstrai_demo_clicked')">Book a demo</a>
+      <a class="btn-secondary" href="mailto:consult@forstradigital.com">Email us</a>
+    </div>
+    <div class="version-note">Built and run by Forstra Digital &middot; Jakarta, Indonesia</div>
+  </section>
+
+  <section>
+    <div class="section-label">The actual problem</div>
+    <div class="section-title">The same twenty questions, asked by different people</div>
+    <p class="sub" style="margin-bottom:0;">
+      Every business has a short list of questions that get asked over and over. What is included.
+      What does it cost. How long does it take. What happens if something breaks. The answers
+      already exist, written down carefully, in a proposal or a handbook or a page on your site.
+      They are just never where the question gets asked, so somebody answers from memory instead,
+      and the answer drifts.
+    </p>
+  </section>
+
+  <section>
+    <div class="section-label">How it works</div>
+    <div class="section-title">Your material in, answers out, inside Telegram</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Give it your material</h3>
+        <p>Upload the documents you already have, or point it at your website and it reads the
+          pages for you.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>We set the voice</h3>
+        <p>Each client gets its own persona, so answers come back sounding like your business
+          rather than like a generic assistant.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>It joins your chat</h3>
+        <p>Bound to the Telegram group or conversation where those questions already get asked.
+          Nothing new to install.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>People ask</h3>
+        <p>Answers come back drawn from your own material, with a clean "not covered" when it
+          genuinely is not in there.</p>
+      </div>
+    </div>
+    <div class="honest-note">
+      <strong>Honest about the AI:</strong> it answers from the material you gave it. It is not
+      trained on your data and it does not quietly learn over time. Change a document and the
+      answers change with it, which is the whole point. You stay in control of what it can say by
+      controlling what it has read.
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Why grounded matters</div>
+    <div class="section-title">A general chatbot will answer. That is the problem.</div>
+    <p class="sub" style="margin-bottom:1.8rem;">
+      Ask a general assistant about your warranty terms and it will produce a confident, fluent,
+      entirely invented answer, because it has no idea what your terms are and nothing telling it
+      to stop. Here is the same question, asked twice.
+    </p>
+    <div class="diff-compare">
+      <div class="diff-col against">
+        <span class="tag">A general chatbot</span>
+        <div class="chat-q">"What is your warranty period?"</div>
+        <p class="chat-a">
+          "Our standard warranty is 12 months from the date of purchase, covering manufacturing
+          defects under normal use."
+        </p>
+        <span class="chat-verdict">Fluent. Confident. Made up.</span>
+      </div>
+      <div class="diff-col us">
+        <span class="tag">ForstrAI</span>
+        <div class="chat-q">"What is your warranty period?"</div>
+        <p class="chat-a">
+          Answers from your actual warranty document, in your wording. If warranty terms were never
+          part of the material it was given, it says the material does not cover that and points
+          the person to a human.
+        </p>
+        <span class="chat-verdict">Grounded, or honest about not knowing.</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">What else it does</div>
+    <div class="section-title">Small things that decide whether people keep using it</div>
+    <div class="cards">
+      <div class="card">
+        <h3>It greets first</h3>
+        <p>Someone new in the chat gets a short introduction saying what it can help with, rather
+          than silence and a guess at how to start.</p>
+      </div>
+      <div class="card">
+        <h3>It catches the booking</h3>
+        <p>When a question turns into "can we talk" or "send me a quote", it takes the details
+          instead of letting the thread go cold.</p>
+      </div>
+      <div class="card">
+        <h3>It reads your site</h3>
+        <p>Point it at a domain and it ingests the pages, staying on that domain and within a page
+          limit you set, so it never wanders off.</p>
+      </div>
+      <div class="card">
+        <h3>It stays in scope</h3>
+        <p>Questions outside your material get a clean refusal. A chatbot that guesses once is a
+          chatbot nobody trusts twice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-label">Who this is for</div>
+    <div class="section-title">Businesses whose answers are already written down</div>
+    <ul class="plain">
+      <li>You answer the same questions repeatedly, and the real answers exist in writing</li>
+      <li>Your team, your customers or both already use Telegram every day</li>
+      <li>You would rather a bot say "I do not know" than produce a confident wrong answer</li>
+      <li>You want to change what it says by changing a document, not by retraining anything</li>
+      <li>You want the material to stay yours</li>
+    </ul>
+    <div class="mini-link-row">
+      <a href="/#contact">See it answering from your own documents. Book a free 30 minute call</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-links">
+      <a href="/">Forstra Digital</a>
+      <a href="/#services">Services</a>
+      <a href="ledgerize.html">Ledgerize</a>
+      <a href="/#contact">Contact</a>
+      <a href="mailto:consult@forstradigital.com">Email</a>
+    </div>
+    <div class="footer-copy">Forstra Digital &middot; ForstrAI</div>
+  </footer>
+</main>
+
+</body>
+</html>
