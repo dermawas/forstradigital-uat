@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static marketing site for Forstra Digital (a boutique consulting firm), plus product pages for Ledgerize (formerly branded SpendAware, briefly "monetr"). No build step, no bundler, no package manager — every page is a self-contained `.html` file with inline `<style>`/`<script>`. Edit files directly and open them in a browser to verify.
 
-This is the **UAT** repo. It deploys to `uat.forstradigital.com` (see `CNAME`). Production is a **separate** GitHub repo, `dermawas/forstradigital-web`.
+This is the **UAT** repo. It deploys to `uat.forstradigital.com` (see `CNAME`). Production is a **separate** GitHub repo, `dermawas/forstradigital-web`. It was named `forstradigital` until 2026-11-01. GitHub forwards the old name to the new one, and that stops if a new repo is ever made under the old name, so never make one called `forstradigital`.
 
 ## Deployment
 
