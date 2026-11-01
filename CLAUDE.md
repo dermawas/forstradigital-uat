@@ -6,11 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Static marketing site for Forstra Digital (a boutique consulting firm), plus product pages for Ledgerize (formerly branded SpendAware, briefly "monetr"). No build step, no bundler, no package manager — every page is a self-contained `.html` file with inline `<style>`/`<script>`. Edit files directly and open them in a browser to verify.
 
-This is the **UAT** repo. It deploys to `uat.forstradigital.com` (see `CNAME`). Production is a **separate** GitHub repo, `dermawas/forstradigital`.
+This is the **UAT** repo. It deploys to `uat.forstradigital.com` (see `CNAME`). Production is a **separate** GitHub repo, `dermawas/forstradigital-web`.
 
 ## Deployment
 
-`.github/workflows/deploy-prod.yml` is manually triggered (`workflow_dispatch`) and promotes UAT to production: it clones `dermawas/forstradigital`, rsyncs this repo's contents over it (excluding `.git`, `.github`, `CNAME`), commits, and pushes. There is no automatic deploy — pushing to `main` here only updates the UAT site via GitHub Pages; production requires manually running that workflow.
+`.github/workflows/deploy-prod.yml` is manually triggered (`workflow_dispatch`) and promotes UAT to production: it clones `dermawas/forstradigital-web`, rsyncs this repo's contents over it (excluding `.git`, `.github`, `CNAME`), commits, and pushes. There is no automatic deploy — pushing to `main` here only updates the UAT site via GitHub Pages; production requires manually running that workflow.
 
 Promote with `gh workflow run "Deploy to Production" --ref main`, then verify with `curl` against `forstradigital.com` — Pages takes ~30s and browser tab icons cache hard, so curl the markup rather than trusting a browser refresh.
 
